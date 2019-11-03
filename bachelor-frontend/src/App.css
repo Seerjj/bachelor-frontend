@@ -10,3 +10,19 @@
 .Menu {
   background-color: #eae9e7;
 }
+
+.ColumnBorder {
+  outline-width: 5em;
+  outline-style: dashed;
+  outline: black;
+}
+
+#ColumnHeader {
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
+
+#RedText {
+  color: red;
+}

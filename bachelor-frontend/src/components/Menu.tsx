@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import { Input, Menu, Segment } from 'semantic-ui-react'
 
+import RentalOverview from '../pages/RentalOverview'
+import Houses from '../pages/Houses'
+import Customers from '../pages/Customers'
+import Materials from '../pages/Materials'
+import Production from '../pages/Production'
+
 export default class MenuExamplePointing extends Component {
   state = { 
       activeItem: 'rental overview'
- }
+  }
 
   handleItemClick = (e: any, { name }: any) => this.setState({ activeItem: name })
 
@@ -48,6 +54,8 @@ export default class MenuExamplePointing extends Component {
         </Menu>
 
         <Segment content={'This part of the menu will show the ' + this.state.activeItem}>
+
+          <Production />
             
         </Segment>
 
