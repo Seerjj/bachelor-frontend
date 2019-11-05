@@ -3,8 +3,8 @@ import { Table } from "semantic-ui-react";
 
 const Houses: React.FC = () => {
   return (
-    <div>
-      <Table striped>
+    <div id="tableContainer">
+      <Table striped fixed celled>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>House Type</Table.HeaderCell>

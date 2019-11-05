@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 import { Path } from "../lib/definitions/enums";
 import { Switch, Route } from "react-router";
-import RentalOverview from "../pages/RentalOverview";
+import RentalOverview from "./RentalOverview";
 import Houses from "../pages/Houses";
 import Customers from "../pages/Customers";
 import Production from "../pages/Production";
 import Materials from "../pages/Materials";
 import "../css/main.css"
 import Login from "./LogInForm";
+
 export const MainPage: React.FC = () => {
   return (
     <div className="main-container">
