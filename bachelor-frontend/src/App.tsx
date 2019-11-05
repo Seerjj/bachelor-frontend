@@ -15,7 +15,6 @@ const App: React.FC = () => {
       setSideMenuVisible(isVisible);
     }
   }
-
   return (
     <div>
       <Header />
@@ -33,7 +32,9 @@ const App: React.FC = () => {
       {/* <LoginForm /> */}
       {/* <Button id="button"/> */}
       {/* <SideMenu/> */}
-      {/* <MainPage /> */}
+      <div>
+      <MainPage />
+      </div>
     </div>
   );
 };

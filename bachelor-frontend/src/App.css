@@ -11,23 +11,6 @@
   background-color: #eae9e7;
 }
 
-<<<<<<< HEAD
-.ColumnBorder {
-  outline-width: 5em;
-  outline-style: dashed;
-  outline: black;
-}
-
-#ColumnHeader {
-  text-align: center;
-  font-weight: bold;
-  color: black;
-}
-
-#RedText {
-  color: red;
-}
-=======
 #button {
   background-color: #ff0000;
 }
@@ -38,4 +21,3 @@
   background-color: #575958;
   font-size: 30px;
 }
->>>>>>> sergiu

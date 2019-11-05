@@ -2,25 +2,26 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
 import { Path } from "../lib/definitions/enums";
 import { Switch, Route } from "react-router";
-import rentalOverview from "./rentalOverview";
-
+import RentalOverview from "../pages/RentalOverview";
+import Houses from "../pages/Houses";
+import Customers from "../pages/Customers";
+import Production from "../pages/Production";
+import Materials from "../pages/Materials";
+import "../css/main.css"
+import Login from "./LogInForm";
 export const MainPage: React.FC = () => {
   return (
-    <React.Fragment>
+    <div className="main-container">
+      <div className="main-container__content">
       <Switch>
-        <Route exact path={Path.RentalOverview} component={rentalOverview}/>
-      
-      <Grid>
-        <Grid.Row>
-          <Grid.Column style={{ backgroundColor: "red" }} width={3}>
-            {/* <SideMenu /> */}
-          </Grid.Column>
-          <Grid.Column style={{ backgroundColor: "aqua" }} width={13}>
-            <h1>Second one starts from here</h1>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path={Path.RentalOverview} component={RentalOverview} />
+        <Route exact path={Path.Houses} component={Houses} />
+        <Route exact path={Path.Customers} component={Customers} />
+        <Route exact path={Path.Materials} component={Materials} />
+        <Route exact path={Path.Production} component={Production} />
       </Switch>
-    </React.Fragment>
+    </div>
+    </div>
   );
 };

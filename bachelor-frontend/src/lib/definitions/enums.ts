@@ -4,6 +4,7 @@ export enum Path{
     Customers = "/customers",
     Materials = "/materials",
     Production = "/production",
+    Login = "/login"
 }
 
 export enum MenuItemName {
