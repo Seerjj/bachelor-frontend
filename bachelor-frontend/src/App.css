@@ -1,6 +1,6 @@
 .App {
+  box-sizing: border-box;
   text-align: center;
-  background-color: #eae9e7;
 }
 
 .Text-Fill {
@@ -9,4 +9,15 @@
 
 .Menu {
   background-color: #eae9e7;
+}
+
+#button {
+  background-color: #ff0000;
+}
+#sidemenu {
+  height: 100vh;
+  width: 240px;
+  position: fixed;
+  background-color: #575958;
+  font-size: 30px;
 }
