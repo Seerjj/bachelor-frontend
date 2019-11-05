@@ -1,0 +1,11 @@
+.main-container {
+  height: calc(100vh - 47px);
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: auto [main-content-start] 1400px [main-content-end] auto;
+  overflow-y: auto;
+}
+.main-container__content {
+  grid-column: main-content-start;
+  margin: 0 0 300px;
+}
