@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from "./images/logo.png";
+import Logo from "./images/LogoRemastered.png";
 import { Header, Icon, Image } from 'semantic-ui-react'
 
 const HeaderComponent = () => (
@@ -10,12 +10,13 @@ const HeaderComponent = () => (
         <Image src={Logo} style={{
             flex: 1,
             alignSelf: 'stretch',
-            width: "10em",
-            height: "5em"
+            width: "263px",
+            height: "55px"
         }}/>
 
+                {/* CHANGE THIS NAME */}
     <Header.Content>Administrator</Header.Content>
-
+    
     </Header>
 
   </div>

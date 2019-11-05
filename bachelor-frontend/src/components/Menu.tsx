@@ -55,7 +55,7 @@ export default class MenuExamplePointing extends Component {
 
         <Segment content={'This part of the menu will show the ' + this.state.activeItem}>
 
-          <Production />
+          <Customers />
             
         </Segment>
 
