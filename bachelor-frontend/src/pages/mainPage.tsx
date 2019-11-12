@@ -3,12 +3,12 @@ import { Grid } from "semantic-ui-react";
 import { Path } from "../lib/definitions/enums";
 import { Switch, Route } from "react-router";
 import Houses from "../pages/Houses";
-import Customers from "../pages/Customers";
 import Production from "../pages/Production";
 import Materials from "../pages/Materials";
 import "../css/main.css"
 import Login from "./LogInForm";
 import RentalOverview from "./RentalOverview";
+import { Customers } from "../pages/Customers";
 
 export const MainPage: React.FC = () => {
   return (

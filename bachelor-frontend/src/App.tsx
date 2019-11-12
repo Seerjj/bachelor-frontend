@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
 import LoginForm from "./pages/LogInForm";
-import Menu from "./components/Menu";
 import Header from "./components/Header";
 import { Button } from "semantic-ui-react";
 import { MainPage } from "./pages/mainPage";
