@@ -7,7 +7,7 @@ import Production from "../pages/Production";
 import Materials from "../pages/Materials";
 import "../css/main.css"
 import Login from "./LogInForm";
-import RentalOverview from "./RentalOverview";
+import RentalOverview from "../pages/RentalOverview";
 import { Customers } from "../pages/Customers";
 
 export const MainPage: React.FC = () => {

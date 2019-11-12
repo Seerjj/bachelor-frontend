@@ -6,6 +6,10 @@ import { Button } from "semantic-ui-react";
 import { MainPage } from "./pages/mainPage";
 import { Menubar } from "./components/sideMenu";
 
+import AddCustomers from "../src/components/AddCustomers"
+import AddMaterials from "../src/components/AddMaterials"
+import AddHouses from "../src/components/AddHouses"
+
 const App: React.FC = () => {
   const [sideMenuVisible, setSideMenuVisible] = useState(false);
   const [sideMenuLocked, setSideMenuLocked] = useState(false);

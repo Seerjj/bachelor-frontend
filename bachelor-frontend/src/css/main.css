@@ -1,5 +1,4 @@
 .main-container {
-  height: calc(100vh - 47px);
   padding-top: 10px;
   display: grid;
   grid-template-columns: auto [main-content-start] 1400px [main-content-end] auto;
