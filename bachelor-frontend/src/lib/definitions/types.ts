@@ -7,7 +7,13 @@ export interface Houses{
     
 }
 export interface Customers{
-    
+  customerId: number;
+	companyName: string;
+	companyTown: string;
+	companyStreet: string;
+	companyPostalCode: number;
+	contactNumber: number;
+	contactPerson: string;
 }
 export interface Materials{
     

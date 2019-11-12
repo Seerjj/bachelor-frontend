@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import Logo from "../components/images/logo.png";
 
-class Login extends React.Component {
-  render = () => (
+const Login: React.FC = () => {
+  return(
     <Grid textAlign="center" verticalAlign="middle">
       <Grid.Column style={{ maxWidth: "50vh" }}>
         <Image src={Logo} verticalAlign="middle" />
@@ -13,7 +13,6 @@ class Login extends React.Component {
         <Form size="large">
           <Segment stacked>
             <Form.Input
-              fluid
               icon="user"
               iconPosition="left"
               placeholder="Username"
@@ -33,6 +32,6 @@ class Login extends React.Component {
       </Grid.Column>
     </Grid>
   );
-}
+};
 
 export default Login;
