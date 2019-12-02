@@ -4,7 +4,7 @@ import { Table } from "semantic-ui-react";
 const Houses: React.FC = () => {
   return (
     <div id="tableContainer">
-      <Table striped fixed celled>
+      {/* <Table striped fixed celled>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>House Type</Table.HeaderCell>
@@ -92,7 +92,7 @@ const Houses: React.FC = () => {
 
 
         </Table.Body>
-      </Table>
+      </Table> */}
     </div>
   );
 };

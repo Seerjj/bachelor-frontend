@@ -1,4 +1,4 @@
-import { MenuItemName, Path } from "../definitions/enums";
+import { MenuItemName, Path, ErrorSeverity } from "../definitions/enums";
 import { RestMethod, ApiMessage } from "../definitions/types";
 
 export function pathFromName(name: MenuItemName) {
@@ -44,22 +44,24 @@ export function pickRouterProps(props: any) {
 }
 
 export async function doFetch(
-  method: RestMethod,
+  method: "GET" | "POST" | "PUT" | "DELETE",
   url: string,
   onOK: (json: any) => void,
   onNotOK: (json: ApiMessage) => void,
-  onNetworkError: (error: typeof Error, stdMsg: string) => void,
+  onNetworkError: (error: typeof Error) => void,
+  body?: string,
   finallyCallback?: () => void,
-  body?: string
+  signal?: AbortSignal
 ) {
   try {
+    const headers = new Headers();
+    headers.set("Content-Type", "application/json");
+    // headers.set("iToken", localStorage.getItem("iToken") + "");
     const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json"
-        // iToken: localStorage.getItem("iToken")
-      } as HeadersInit, // Why do I need to cast randomly here?
-      method,
-      body: body
+      headers: headers,
+      method: method,
+      signal: signal,
+      body: body ? body : undefined
     });
 
     try {
@@ -78,10 +80,52 @@ export async function doFetch(
     }
   } catch (error) {
     console.log(error, typeof error);
-    onNetworkError(error, "Network error");
+    onNetworkError(error);
   } finally {
     if (finallyCallback) {
       finallyCallback();
     }
   }
+}
+export function logError(message: string, severity: ErrorSeverity) {
+  console.log(severity + ": " + message);
+}
+
+export function setProp(obj: any, path: string, value: any) {
+  const keyPath = path.split(".");
+  let lastKeyIndex = keyPath.length - 1;
+  for (var i = 0; i < lastKeyIndex; ++i) {
+    let key = keyPath[i];
+    if (!(key in obj)) {
+      obj[key] = {};
+    }
+    obj = obj[key];
+  }
+  obj[keyPath[lastKeyIndex]] = value;
+}
+
+export function getProp(object: any, property: string) {
+  if (!object) {
+    return undefined;
+  }
+
+  const properties = property.split(".");
+  let currentObject = object;
+  let index = 0;
+  let currentProperty = properties[index];
+
+  while (currentObject.hasOwnProperty(currentProperty)) {
+    if (index === properties.length - 1) {
+      return currentObject[currentProperty];
+    } else {
+      currentObject = currentObject[currentProperty];
+      if (currentObject === undefined) {
+        return undefined;
+      }
+      index++;
+      currentProperty = properties[index];
+    }
+  }
+
+  return undefined;
 }

@@ -3,6 +3,7 @@ import { Button, Form, Grid, Header, Image, Segment } from "semantic-ui-react";
 import Logo from "../components/images/logo.png";
 
 const Login: React.FC = () => {
+
   return(
     <Grid textAlign="center" verticalAlign="middle">
       <Grid.Column style={{ maxWidth: "50vh" }}>

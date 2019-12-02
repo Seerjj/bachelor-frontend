@@ -15,7 +15,7 @@ export const MainPage: React.FC = () => {
     <div className="main-container">
       <div className="main-container__content">
       <Switch>
-        <Route exact path="/login" component={Login}/>
+        <Route exact path="/" component={RentalOverview}/>
         <Route exact path={Path.RentalOverview} component={RentalOverview} />
         <Route exact path={Path.Houses} component={Houses} />
         <Route exact path={Path.Customers} component={Customers} />
