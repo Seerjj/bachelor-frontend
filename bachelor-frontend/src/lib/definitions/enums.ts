@@ -6,7 +6,7 @@ export enum Path {
   Production = "/production",
   Login = "/login"
 }
-export const nameToPath = {
+export const NameToPath = {
   RentalOverview: "/rentaloverview",
   Houses: "/houses",
   Customers: "/customers",
@@ -34,8 +34,8 @@ export enum MenuItemName {
 export enum FMURL {
   //     RentalOverview = "http://",
   //     Houses = "http://",
-  // Customers = "https://localhost:44320/api/customers"
-  Customers = "http://localhost:51992/api/customers"
+  Customers = "customers",
+  Login = "login"
   //     Materials = "http://",
   //     Production = "http://"
 }
@@ -51,4 +51,9 @@ export enum SortState {
   Ascending = "ascending",
   Descending = "descending",
   Off = "off"
+}
+
+export enum TypeOfError {
+  NetworkError = "network error",
+  CodeExecutionError = "code execution error"
 }

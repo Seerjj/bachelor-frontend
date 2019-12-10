@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
-import { Path, nameToPath, pathToName } from "../lib/definitions/enums";
+import { Path, pathToName, NameToPath } from "../lib/definitions/enums";
 import { nameFromPath, pathFromName } from "../lib/functions/general_funcs";
 import { RouteComponentProps, withRouter } from "react-router";
 
@@ -12,13 +12,13 @@ export interface MenubarProps extends RouteComponentProps {
 }
 
 const UnroutedMenubar: React.FC<MenubarProps> = props => {
-  function handleOnMenuItemClick(item: keyof typeof nameToPath) {
-    const path = nameToPath[item];
+  function handleOnMenuItemClick(item: keyof typeof NameToPath) {
+    const path = NameToPath[item];
     props.history.push(path);
     props.setSideMenuVisible(false);
   }
 
-  function shouldBeHighlighted(item: keyof typeof nameToPath) {
+  function shouldBeHighlighted(item: keyof typeof NameToPath) {
     let currentPath = props.history.location.pathname;
     const elems = currentPath.split("/");
     if (elems.length > 1) {
@@ -30,7 +30,7 @@ const UnroutedMenubar: React.FC<MenubarProps> = props => {
     return false;
   }
 
-  const item = (name: keyof typeof nameToPath) => (
+  const item = (name: keyof typeof NameToPath) => (
     <Menu.Item
       name={name}
       active={shouldBeHighlighted(name)}

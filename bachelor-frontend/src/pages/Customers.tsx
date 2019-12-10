@@ -5,7 +5,11 @@ import { FMURL } from "../lib/definitions/enums";
 import { async } from "q";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { Table, Accordion, Form, Button } from "semantic-ui-react";
-import { CustomerInformation } from "./CustomerInformation";
+import { CustomerInformation } from "../pages/CustomerInformation";
+
+// import {TableInt} from "../../node_modules/@lego-integration/ui-framework"
+
+// var lego = require("../../node_modules/@lego-integration/@lego-integration/ui-framework")
 
 export const Customers: React.FC = () => {
   const [currentCustomer, setCurrentCustomer] = useState<Customer>();
@@ -46,7 +50,7 @@ export const Customers: React.FC = () => {
 
   useEffect(() => {
     fetchCustomers();
-  });
+  }, []);
   function handleCustomerClick(customer: Customer) {
     setSetupIsActive(false);
     setCurrentCustomer(customer);
@@ -55,13 +59,13 @@ export const Customers: React.FC = () => {
   return (
     <div>
       <Table
-        onRowClick={handleCustomerClick}
-        // columns={columns}
-        // rows={customers}
-        setRows={setCustomers}
-        pagination="menu"
-        searchable
-        selectedRow={currentCustomer}
+        // onRowClick={handleCustomerClick}
+        // // columns={columns}
+        // // rows={customers}
+        // setRows={setCustomers}
+        // pagination="menu"
+        // searchable
+        // selectedRow={currentCustomer}
       >
         {customers.map(customer => (
           <Table.Row>

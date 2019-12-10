@@ -7,7 +7,6 @@ import { Menubar } from "./components/sideMenu";
 import AddCustomers from "../src/components/AddCustomers";
 import AddMaterials from "../src/components/AddMaterials";
 import AddHouses from "../src/components/AddHouses";
-import Login from "./pages/LogInForm";
 import { Route } from "react-router";
 
 const App: React.FC = () => {
@@ -22,23 +21,17 @@ const App: React.FC = () => {
 
   return (
     <div>
-      {isLoggedIn ? (
-        <Login />
-      ) : (
-        <div>
-          <Header />
-            <Menubar
-              sideMenuVisible={sideMenuVisible}
-              setSideMenuVisible={setSideMenuVisibleWithGuard}
-              unlockSideMenu={() => {
-                setSideMenuLocked(false);
-                setSideMenuVisible(false);
-              }}
-              searchCallback={(input: string) => alert(input)}
-            />
-            <MainPage />
-          </div>
-          )}
+        <Header />
+        <Menubar
+          sideMenuVisible={sideMenuVisible}
+          setSideMenuVisible={setSideMenuVisibleWithGuard}
+          unlockSideMenu={() => {
+            setSideMenuLocked(false);
+            setSideMenuVisible(false);
+          }}
+          searchCallback={(input: string) => alert(input)}
+        />
+        <MainPage />
     </div>
   );
 };

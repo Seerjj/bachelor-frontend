@@ -1,4 +1,4 @@
-import { MenuItemName, Path, ErrorSeverity } from "../definitions/enums";
+import { MenuItemName, Path, ErrorSeverity, TypeOfError } from "../definitions/enums";
 import { RestMethod, ApiMessage } from "../definitions/types";
 
 export function pathFromName(name: MenuItemName) {
@@ -87,6 +87,56 @@ export async function doFetch(
     }
   }
 }
+
+export async function doFetchNew(
+  method: "GET" | "POST" | "PUT" | "DELETE",
+  url: string,
+  onOK: (json: any) => void,
+  onNotOK: (json: ApiMessage) => void,
+  onError: (message: string) => void,
+  body?: string,
+  finallyCallback?: () => void,
+  signal?: AbortSignal
+) {
+  try {
+    const headers = new Headers();
+    headers.set("token", localStorage.getItem("token") + "");
+    headers.set("refreshToken", localStorage.getItem("refreshToken") + "");
+    headers.set("Content-Type", "application/json");
+    headers.set("If-None-Match", '""');
+   
+    const response = await fetch(`https://localhost:44352/api/v1/identity/${url}`, {
+      headers: headers,
+      method: method,
+      signal: signal,
+      body: body ? body : undefined
+    });
+
+    try {
+      const responseBody = await response.json();
+      if (response.ok) {
+        onOK(responseBody);
+      } else {
+        onNotOK(responseBody);
+      }
+    } catch (error) {
+      console.log(error);
+      onError(
+        `A ${TypeOfError.CodeExecutionError} occured. Check the console log for more information`
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    onError(`A ${TypeOfError.NetworkError} occured. Check the console log for more information`);
+  } finally {
+    if (finallyCallback) {
+      finallyCallback();
+    }
+  }
+}
+
+
+
 export function logError(message: string, severity: ErrorSeverity) {
   console.log(severity + ": " + message);
 }

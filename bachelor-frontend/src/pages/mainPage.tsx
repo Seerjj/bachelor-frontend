@@ -5,24 +5,27 @@ import { Switch, Route } from "react-router";
 import Houses from "../pages/Houses";
 import Production from "../pages/Production";
 import Materials from "../pages/Materials";
-import "../css/main.css"
-import Login from "./LogInForm";
+import "../css/main.css";
 import RentalOverview from "../pages/RentalOverview";
 import { Customers } from "../pages/Customers";
+import { Login } from "./Login";
 
 export const MainPage: React.FC = () => {
   return (
     <div className="main-container">
       <div className="main-container__content">
-      <Switch>
-        <Route exact path="/" component={RentalOverview}/>
-        <Route exact path={Path.RentalOverview} component={RentalOverview} />
-        <Route exact path={Path.Houses} component={Houses} />
-        <Route exact path={Path.Customers} component={Customers} />
-        <Route exact path={Path.Materials} component={Materials} />
-        <Route exact path={Path.Production} component={Production} />
-      </Switch>
-    </div>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route
+            path={Path.RentalOverview}
+            component={RentalOverview}
+          />
+          <Route path={Path.Houses} component={Houses} />
+          <Route path={Path.Customers} component={Customers} />
+          <Route path={Path.Materials} component={Materials} />
+          <Route path={Path.Production} component={Production} />
+        </Switch>
+      </div>
     </div>
   );
 };
