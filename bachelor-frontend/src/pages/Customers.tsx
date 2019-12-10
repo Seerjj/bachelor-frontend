@@ -31,6 +31,7 @@ export const Customers: React.FC = () => {
   //   },
   //   { displayName: "SystemGroup", fieldName: "SystemGroup" }
   // ];
+  
 
   async function fetchCustomers() {
     setIsFetching(true);

@@ -8,7 +8,8 @@ import Materials from "../pages/Materials";
 import "../css/main.css";
 import RentalOverview from "../pages/RentalOverview";
 import { Customers } from "../pages/Customers";
-import { Login } from "./Login";
+import  Login  from "./login";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const MainPage: React.FC = () => {
   return (
@@ -16,14 +17,14 @@ export const MainPage: React.FC = () => {
       <div className="main-container__content">
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route
+          <ProtectedRoute
             path={Path.RentalOverview}
             component={RentalOverview}
           />
-          <Route path={Path.Houses} component={Houses} />
-          <Route path={Path.Customers} component={Customers} />
-          <Route path={Path.Materials} component={Materials} />
-          <Route path={Path.Production} component={Production} />
+          <ProtectedRoute path={Path.Houses} component={Houses} />
+          <ProtectedRoute path={Path.Customers} component={Customers} />
+          <ProtectedRoute path={Path.Materials} component={Materials} />
+          <ProtectedRoute path={Path.Production} component={Production} />
         </Switch>
       </div>
     </div>

@@ -8,6 +8,7 @@ import AddCustomers from "../src/components/AddCustomers";
 import AddMaterials from "../src/components/AddMaterials";
 import AddHouses from "../src/components/AddHouses";
 import { Route } from "react-router";
+import { AuthProvider } from "./pages/AuthContext";
 
 const App: React.FC = () => {
   const [sideMenuVisible, setSideMenuVisible] = useState(false);
@@ -21,6 +22,8 @@ const App: React.FC = () => {
 
   return (
     <div>
+      <AuthProvider>
+        {" "}
         <Header />
         <Menubar
           sideMenuVisible={sideMenuVisible}
@@ -32,6 +35,7 @@ const App: React.FC = () => {
           searchCallback={(input: string) => alert(input)}
         />
         <MainPage />
+      </AuthProvider>
     </div>
   );
 };

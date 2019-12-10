@@ -34,7 +34,7 @@ export enum MenuItemName {
 export enum FMURL {
   //     RentalOverview = "http://",
   //     Houses = "http://",
-  Customers = "customers",
+  Customers = "https://localhost:44352/api/v1/customers",
   Login = "login"
   //     Materials = "http://",
   //     Production = "http://"
