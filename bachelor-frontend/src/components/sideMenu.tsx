@@ -46,7 +46,7 @@ const UnroutedMenubar: React.FC<MenubarProps> = props => {
         {item(MenuItemName.Customers)}
         {item(MenuItemName.Materials)}
         {item(MenuItemName.Production)} */}
-        {item("RentalOverview")}
+        {item("RentalOverviews")}
         {item("Houses")}
         {item("Customers")}
         {item("Materials")}

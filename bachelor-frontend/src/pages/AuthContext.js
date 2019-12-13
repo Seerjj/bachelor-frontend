@@ -11,6 +11,7 @@ class AuthProviderComponent extends Component {
     isAuth: false,
     user: {},
     token: ""
+    // refreshToken: ""
   };
   constructor(props) {
     super(props);
@@ -30,9 +31,14 @@ class AuthProviderComponent extends Component {
 
   checkLogin = () => {
     if (this.loggedIn()) {
-      this.state = { ...this.state, isAuth: true, token: this.state.token };
+      this.state = {
+        ...this.state,
+        isAuth: true,
+        Authorization: this.state
+          .token /*refreshToken: this.state.refreshToken*/
+      };
       console.log("tstate", this.state);
-      //this.props.history.push("/systems");
+      // this.props.history.push("/customers");
 
       // <Redirect push to={"/systems"} />;
     }
@@ -42,22 +48,23 @@ class AuthProviderComponent extends Component {
     var email = values ? values.email : "1";
     var password = values ? values.password : "12345";
     var token = values ? values.token : "12";
-    var refreshToken = values ? values.refreshToken : "12";
+    // var refreshToken = values ? values.refreshToken : "12";
 
     if (this.state.isAuth) {
       // you shouldn't really end up here, if you end up in here, you've wrongly set up your routes / componetns
     } else {
-      fetch("http://localhost:54263/api/v1/identity/login", {
+      fetch("https://localhost:44310/api/v1/identity/login", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          token: `Bearer ${token}`,
-          refreshToken: refreshToken
+          Authorization: `Bearer ${token}`
+          // refreshToken: `Bearer ${refreshToken}`
         },
         body: JSON.stringify({
           email: email,
           Password: password,
-          token: token
+          Authorization: token
+          // refreshToken: refreshToken
         })
       })
         .then(response => {
@@ -71,15 +78,17 @@ class AuthProviderComponent extends Component {
           if (values.onLogin) {
             values.onLogin.call(this);
             this.setToken(response.token);
+            // this.setRefreshToken(response.refreshToken)
             this.setState(
               () => ({
                 isAuth: true,
                 token: response.token,
+                // refreshToken: response.refreshToken,
                 headers: {
                   "Content-Type": "application/json",
-                  token: `Bearer ${response.token}`,
+                  Authorization: `Bearer ${response.token}`
 
-                  refreshToken: response.refreshToken
+                  // refreshToken: `Bearer ${refreshToken}`
                 }
               }),
               () => {
@@ -94,32 +103,37 @@ class AuthProviderComponent extends Component {
   }
   loggedIn() {
     // Checks if there is a saved token and it's still valid
+    // const refreshToken = this.getRefreshToken();
     const token = this.getToken(); // GEtting token from localstorage
     return !!token; // handwaiving here
   }
-
+  setRefreshToken(idToken) {
+    localStorage.setItem("refreshToken", idToken);
+  }
   setToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem("token", idToken);
+    localStorage.setItem("Authorization", `Bearer ${idToken}`);
   }
-
+  getRefreshToken() {
+    return localStorage.getItem("refreshToken");
+  }
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem("token");
+    return localStorage.getItem("Authorization");
   }
 
   fetch(url, options) {
     // performs api calls sending the required authentication headers
     const headers = {
-      Accept: "application/json",
+      // Accept: "application/json",
       "Content-Type": "application/json",
-      token: `Bearer ${this.token}`
+      Authorization: `Bearer ${this.Authorization}`
     };
 
     // Setting Authorization header
     // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
     if (this.loggedIn()) {
-      headers["token"] = "Bearer " + this.token;
+      headers["Authorization"] = "Bearer " + this.Authorization;
     }
 
     return fetch(url, {
@@ -134,7 +148,7 @@ class AuthProviderComponent extends Component {
 
   logout() {
     this.setState({ isAuth: false, user: {} });
-    localStorage.removeItem("token");
+    localStorage.removeItem("Authorization");
   }
   _checkStatus(response) {
     // raises an error in case response status is not a success

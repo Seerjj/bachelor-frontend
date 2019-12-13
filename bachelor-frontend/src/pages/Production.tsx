@@ -1,52 +1,40 @@
-import React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Table } from 'semantic-ui-react'
+import { FMURL } from '../lib/definitions/enums';
+import { doFetch } from '../lib/functions/general_funcs';
+import { Production } from '../lib/definitions/types';
 
-const Production: React.FC = () => {
+ export const ProductionInformation: React.FC = () => {
+  
+  const [productionInformation, setProductionInformation] = useState<Production[]>([]);
+  const [isFetchingProductionInformation, setIsFetchingProductionInformation] = useState<boolean>(false);
+  const [popupText, setPopupText] = useState("");
+
+
+  const fetchProductionInformation = useCallback(() => {
+    const url = FMURL.Production;
+    setIsFetchingProductionInformation(true);
+    doFetch(
+      "GET",
+      url,
+      json => setProductionInformation(json), 
+      json => setPopupText(json.Message),
+      message => {
+        setPopupText(message); 
+        setProductionInformation([]);
+      },
+      "",
+      () => setIsFetchingProductionInformation(false)
+    );
+  }, []);
+
+  useEffect(() => {
+    fetchProductionInformation();
+  }, [fetchProductionInformation]);
+
     return (
       <div id="tableContainer">
-        {/* <Table striped fixed celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>House ID</Table.HeaderCell>
-            <Table.HeaderCell>Exterior Walls</Table.HeaderCell>
-            <Table.HeaderCell>Ventilation</Table.HeaderCell>
-            <Table.HeaderCell>Production Price</Table.HeaderCell>
-            <Table.HeaderCell>Production Date</Table.HeaderCell>
-            <Table.HeaderCell>Additional Costs</Table.HeaderCell>
-            <Table.HeaderCell>Full Price</Table.HeaderCell>
-            <Table.HeaderCell>Last Updated</Table.HeaderCell>
-            <Table.HeaderCell>Note</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Row textAlign='left'>
-            <Table.Cell>1517</Table.Cell>
-            <Table.Cell>2</Table.Cell>
-            <Table.Cell>NONE</Table.Cell>
-            <Table.Cell>32,000 DKK</Table.Cell>
-            <Table.Cell>12/06/2017</Table.Cell>
-            <Table.Cell>465.12 DKK</Table.Cell>
-            <Table.Cell id="RedText">32,465.12 DKK</Table.Cell>
-            <Table.Cell>12/06/2017</Table.Cell>
-            <Table.Cell>Brand new flexmodul house</Table.Cell>
-        </Table.Row>
-
-        <Table.Row textAlign='left'>
-            <Table.Cell>1819</Table.Cell>
-            <Table.Cell>3</Table.Cell>
-            <Table.Cell>YES</Table.Cell>
-            <Table.Cell>38,540 DKK</Table.Cell>
-            <Table.Cell>23/01/2019</Table.Cell>
-            <Table.Cell>823.10 DKK</Table.Cell>
-            <Table.Cell id="RedText">39,363.10 DKK</Table.Cell>
-            <Table.Cell>16/09/2019</Table.Cell>
-            <Table.Cell>Repaired ventilation</Table.Cell>
-        </Table.Row>
-
-        </Table> */}
+       
       </div>
     );
   };
-  
-  export default Production;
-  

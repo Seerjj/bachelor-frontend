@@ -1,6 +1,6 @@
 export type RestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
-export interface RentalOverview {
+export interface RentalOverviews{
   rentalOverviewId: number;
   rentedHouses: string | null;
   productionInformation: string | null;

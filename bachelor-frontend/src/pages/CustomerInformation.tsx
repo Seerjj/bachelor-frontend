@@ -96,7 +96,7 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
     }
     doFetch(
       "POST",
-      `${FMURL.Customers}`,
+      FMURL.Customers,
       () => {
         props.fetchCustomers();
         setPopupText(id + " created successfully");

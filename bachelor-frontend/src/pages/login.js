@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Input } from "semantic-ui-react";
+import { Button, Input, Icon } from "semantic-ui-react";
 import { AuthConsumer } from "./AuthContext";
 import { Field, Form } from "react-final-form";
 
@@ -61,6 +61,24 @@ class Login extends Component {
             />
           )}
         </AuthConsumer>
+        <AuthConsumer>
+          {({ isAuth, user, login, logout }) => (
+            <div>
+              {isAuth ? (
+                <div className="newLogoutButton">
+                  <Icon
+                    size="large"
+                    name="sign-out alternate"
+                    onClick={logout}
+                  />
+                </div>
+              ) : (
+                <div />
+              )}
+            </div>
+          )}
+        </AuthConsumer>
+
       </React.Fragment>
     );
   }

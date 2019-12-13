@@ -1,73 +1,37 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Table } from "semantic-ui-react";
+import { FMURL } from "../lib/definitions/enums";
+import { doFetch } from "../lib/functions/general_funcs";
+import { RentalOverviews } from "../lib/definitions/types";
 
-const RentalOverview: React.FC = () => {
+export const RentalOverview: React.FC = () => {
+  const [rentalOverviews, setRentalOverviews] = useState<RentalOverviews[]>([]);
+  const [isFetchingRentalOverviews, setIsFetchingRentalOverviews] = useState<boolean>(false);
+  const [popupText, setPopupText] = useState("");
+
+  const fetchRentalOverviews = useCallback(() => {
+    const url = FMURL.RentalOverviews;
+    setIsFetchingRentalOverviews(true);
+    doFetch(
+      "GET",
+      url,
+      json => setRentalOverviews(json),
+      json =>setPopupText(json.Message),
+      message =>{
+        setPopupText(message);
+        setRentalOverviews([]);
+      },
+      "",
+      () => setIsFetchingRentalOverviews(false)
+    );
+  },[])
+
+  useEffect(()=>{
+    fetchRentalOverviews();
+  },[fetchRentalOverviews]);
   return (
     <div id="tableContainer">
-      <Table striped fixed celled >
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell width={5}>Rented Houses</Table.HeaderCell>
-            <Table.HeaderCell width={5}>Purchase Status</Table.HeaderCell>
-            <Table.HeaderCell width={5}>Setup Address</Table.HeaderCell>
-            <Table.HeaderCell width={5}>Estimated Price</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell> 'PUT THE HOUSE ID(S) HERE' </Table.Cell>
-            <Table.Cell> 'PURCHASED/ NOT PURCHASED/ RENT' </Table.Cell>
-            <Table.Cell> 'ADDRESS OF SET UP' </Table.Cell>
-            <Table.Cell> 'ESTIMATED PRICE OF THE HOUSE' </Table.Cell>
-          </Table.Row>
-          
-          <Table.Row>
-            <Table.Cell> 'PUT THE HOUSE ID(S) HERE' </Table.Cell>
-            <Table.Cell> 'PURCHASED/ NOT PURCHASED/ RENT' </Table.Cell>
-            <Table.Cell> 'ADDRESS OF SET UP' </Table.Cell>
-            <Table.Cell> 'ESTIMATED PRICE OF THE HOUSE' </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.Cell> 'PUT THE HOUSE ID(S) HERE' </Table.Cell>
-            <Table.Cell> 'PURCHASED/ NOT PURCHASED/ RENT' </Table.Cell>
-            <Table.Cell> 'ADDRESS OF SET UP' </Table.Cell>
-            <Table.Cell> 'ESTIMATED PRICE OF THE HOUSE' </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.Cell> 'PUT THE HOUSE ID(S) HERE' </Table.Cell>
-            <Table.Cell> 'PURCHASED/ NOT PURCHASED/ RENT' </Table.Cell>
-            <Table.Cell> 'ADDRESS OF SET UP' </Table.Cell>
-            <Table.Cell> 'ESTIMATED PRICE OF THE HOUSE' </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.Cell> 'PUT THE HOUSE ID(S) HERE' </Table.Cell>
-            <Table.Cell> 'PURCHASED/ NOT PURCHASED/ RENT' </Table.Cell>
-            <Table.Cell> 'ADDRESS OF SET UP' </Table.Cell>
-            <Table.Cell> 'ESTIMATED PRICE OF THE HOUSE' </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.Cell> 'PUT THE HOUSE ID(S) HERE' </Table.Cell>
-            <Table.Cell> 'PURCHASED/ NOT PURCHASED/ RENT' </Table.Cell>
-            <Table.Cell> 'ADDRESS OF SET UP' </Table.Cell>
-            <Table.Cell> 'ESTIMATED PRICE OF THE HOUSE' </Table.Cell>
-          </Table.Row>
-
-          <Table.Row>
-            <Table.Cell> 'PUT THE HOUSE ID(S) HERE' </Table.Cell>
-            <Table.Cell> 'PURCHASED/ NOT PURCHASED/ RENT' </Table.Cell>
-            <Table.Cell> 'ADDRESS OF SET UP' </Table.Cell>
-            <Table.Cell> 'ESTIMATED PRICE OF THE HOUSE' </Table.Cell>
-          </Table.Row>
-
-        </Table.Body>
-      </Table>
+     
     </div>
   );
 };
-
-export default RentalOverview;
