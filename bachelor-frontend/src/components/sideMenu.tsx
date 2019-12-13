@@ -1,8 +1,10 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
-import { MenuItemName, Path } from "../lib/definitions/enums";
+import { Path, pathToName, NameToPath } from "../lib/definitions/enums";
 import { nameFromPath, pathFromName } from "../lib/functions/general_funcs";
 import { RouteComponentProps, withRouter } from "react-router";
+import "../scss/_sidemenu.scss"
+import "../scss/main.scss"
 
 export interface MenubarProps extends RouteComponentProps {
   sideMenuVisible: boolean;
@@ -12,21 +14,25 @@ export interface MenubarProps extends RouteComponentProps {
 }
 
 const UnroutedMenubar: React.FC<MenubarProps> = props => {
-  function handleOnMenuItemClick(item: MenuItemName) {
-    props.history.push(pathFromName(item));
+  function handleOnMenuItemClick(item: keyof typeof NameToPath) {
+    const path = NameToPath[item];
+    props.history.push(path);
     props.setSideMenuVisible(false);
   }
 
-
-  function shouldBeHighlighted(item: MenuItemName) {
-    const currentPath = props.history.location.pathname;
-    if (Object.values(Path).includes(currentPath as Path)) {
-      return item === nameFromPath(currentPath as Path);
+  function shouldBeHighlighted(item: keyof typeof NameToPath) {
+    let currentPath = props.history.location.pathname;
+    const elems = currentPath.split("/");
+    if (elems.length > 1) {
+      currentPath = "/" + elems[1];
+    }
+    if (Object.keys(pathToName).includes(currentPath)) {
+      return item === pathToName[currentPath as keyof typeof pathToName];
     }
     return false;
   }
 
-  const item = (name: MenuItemName) => (
+  const item = (name: keyof typeof NameToPath) => (
     <Menu.Item
       name={name}
       active={shouldBeHighlighted(name)}
@@ -36,12 +42,13 @@ const UnroutedMenubar: React.FC<MenubarProps> = props => {
 
   return (
     <React.Fragment>
-      <Menu id="sidemenu" inverted vertical>
-        {item(MenuItemName.RentalOverview)}
-        {item(MenuItemName.Houses)}
-        {item(MenuItemName.Customers)}
-        {item(MenuItemName.Materials)}
-        {item(MenuItemName.Production)}
+      <Menu className="sidemenu" inverted vertical>
+        {item("RentalOverview")}
+        {item("Houses")}
+        {item("Customers")}
+        {item("Materials")}
+        {item("Production")}
+        {item("QR")}
       </Menu>
     </React.Fragment>
   );

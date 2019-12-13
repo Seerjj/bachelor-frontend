@@ -1,93 +1,96 @@
-import React, { useEffect, useState } from "react";
-import { Table } from "semantic-ui-react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Customer } from "../lib/definitions/types";
-import { doFetch } from "../lib/functions/general_funcs";
+import { doFetch, getProp } from "../lib/functions/general_funcs";
 import { FMURL } from "../lib/definitions/enums";
+import { async } from "q";
+import { RouteComponentProps, Link } from "react-router-dom";
+import { Table, Accordion, Form, Button } from "semantic-ui-react";
+import { CustomerInformation } from "../pages/CustomerInformation";
+
+// import {TableInt} from "../../node_modules/@lego-integration/ui-framework"
+
+// var lego = require("../../node_modules/@lego-integration/@lego-integration/ui-framework")
 
 export const Customers: React.FC = () => {
+  const [currentCustomer, setCurrentCustomer] = useState<Customer>();
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalText, setModalText] = useState<string>("");
+  const [setupIsActive, setSetupIsActive] = useState(false);
 
-  useEffect(() => {
-    const customer = require(FMURL.Customers);
-    setCustomers(customer.json);
-  }, []);
+  // const columns: TableColumn  [] = [
+  //   { displayName: "Name", fieldName: "Name" },
+  //   { displayName: "Description", fieldName: "Description" },
+  //   { displayName: "Codepage", fieldName: "Codepage" },
+  //   { displayName: "HubId", fieldName: "HubId" },
+  //   { displayName: "Location", fieldName: "Location" },
+  //   {
+  //     displayName: "CommunicationMethodName",
+  //     fieldName: "communicationmethodname"
+  //   },
+  //   { displayName: "SystemGroup", fieldName: "SystemGroup" }
+  // ];
+  
 
-  function fetchCustomers() {
+  async function fetchCustomers() {
     setIsFetching(true);
-    doFetch(
-      "GET",
-      FMURL.Customers,
-      json => {
-        setCustomers(json);
+    const res = await fetch(FMURL.Customers);
+    res.json().then(
+      res => {
+        setCustomers(res);
         setIsFetching(false);
       },
-      json => {
-        setModalText(json.Message);
+      res => {
+        setModalText(res.Message);
         setShowModal(true);
         setIsFetching(false);
-      },
-
-      (error, stdMsg) => {
-        setIsFetching(false);
-        setModalText(stdMsg);
-        setShowModal(true);
-        setCustomers([]);
       }
     );
   }
-  function refresh() {
+
+  useEffect(() => {
     fetchCustomers();
+  }, []);
+  function handleCustomerClick(customer: Customer) {
+    setSetupIsActive(false);
+    setCurrentCustomer(customer);
   }
-  // componentDidMount() {
-  //   fetch("https://localhost:44320/api/customers", {
-  //     method: "get",
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "*",
-  //       "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(json => {
-  //       this.setState({
-  //         values: json
-  //       });
-  //     });
-  // }
 
   return (
     <div>
-      <ul>
+      <Table
+        // onRowClick={handleCustomerClick}
+        // // columns={columns}
+        // // rows={customers}
+        // setRows={setCustomers}
+        // pagination="menu"
+        // searchable
+        // selectedRow={currentCustomer}
+      >
         {customers.map(customer => (
-          <li>{customer.companyName}</li>
-        ))}
-      </ul>
-
-      {/* <Table striped>
-        <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Company Name</Table.HeaderCell>
-            <Table.HeaderCell>Town</Table.HeaderCell>
-            <Table.HeaderCell>Address</Table.HeaderCell>
-            <Table.HeaderCell>Postal code</Table.HeaderCell>
-            <Table.HeaderCell>Contact Number</Table.HeaderCell>
-            <Table.HeaderCell>Contact Person</Table.HeaderCell>
+            <Table.Cell>{customer.customerId}</Table.Cell>
+            <Table.Cell>{customer.companyName}</Table.Cell>
+            <Table.Cell>{customer.companyTown}</Table.Cell>
+            <Table.Cell>{customer.companyStreet}</Table.Cell>
+            <Table.Cell>{customer.companyPostalCode}</Table.Cell>
+            <Table.Cell>{customer.contactNumber}</Table.Cell>
+            <Table.Cell>{customer.contactPerson}</Table.Cell>
           </Table.Row>
-        </Table.Header> */}
-
-      {/* {values.map(value => (
-          <Table.Row key={value.valueId}>
-            <Table.Cell>{value.companyName}</Table.Cell>
-            <Table.Cell>{value.companyTown}</Table.Cell>
-            <Table.Cell>{value.companyStreet}</Table.Cell>
-            <Table.Cell>{value.companyPostalCode}</Table.Cell>
-            <Table.Cell>{value.contactNumber}</Table.Cell>
-            <Table.Cell>{value.contactPerson}</Table.Cell>
-          </Table.Row>
-        ))} */}
-      {/* </Table> */}
+        ))}
+      </Table>
+      <CustomerInformation
+         currentCustomer={currentCustomer}
+         onNewCurrentCustomer={setCurrentCustomer}
+         setupIsActive={setupIsActive}
+         onSetupStateChange={setSetupIsActive}
+         fetchCustomers={fetchCustomers}
+       /> 
     </div>
   );
 };
+
+
+  
+

@@ -4,7 +4,7 @@ import { Table } from 'semantic-ui-react'
 const Materials: React.FC = () => {
     return (
       <div id="tableContainer">
-        <Table striped fixed celled>
+        {/* <Table striped fixed celled>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Name</Table.HeaderCell>
@@ -63,7 +63,7 @@ const Materials: React.FC = () => {
             <Table.Cell>m</Table.Cell>
         </Table.Row>
 
-        </Table>
+        </Table> */}
       </div>
     );
   };

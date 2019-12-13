@@ -6,23 +6,31 @@ import Houses from "../pages/Houses";
 import Production from "../pages/Production";
 import Materials from "../pages/Materials";
 import "../css/main.css"
-import Login from "./LogInForm";
 // import RentalOverview from "../pages/RentalOverview";
+import "../css/main.css";
+//import RentalOverview from "../pages/RentalOverview";
 import { Customers } from "../pages/Customers";
+import  Login  from "./login";
+import ProtectedRoute from "./ProtectedRoute";
+import QRReader from "../components/QrCodeScanner"
 
 export const MainPage: React.FC = () => {
   return (
     <div className="main-container">
-      <div className="main-container__content">
-      <Switch>
-        <Route exact path="/login" component={Login}/>
-        {/* <Route exact path={Path.RentalOverview} component={RentalOverview} /> */}
-        <Route exact path={Path.Houses} component={Houses} />
-        <Route exact path={Path.Customers} component={Customers} />
-        <Route exact path={Path.Materials} component={Materials} />
-        <Route exact path={Path.Production} component={Production} />
-      </Switch>
-    </div>
+      {/* <div className="main-container__content"> */}
+        <Switch>
+          <Route exact path="/" component={Login} />
+          {/* <ProtectedRoute
+            path={Path.RentalOverview}
+            component={RentalOverview}
+          /> */}
+          <ProtectedRoute path={Path.Houses} component={Houses} />
+          <ProtectedRoute path={Path.Customers} component={Customers} />
+          <ProtectedRoute path={Path.Materials} component={Materials} />
+          <ProtectedRoute path={Path.Production} component={Production} />
+          <ProtectedRoute path={Path.QR} component={QRReader} />
+        </Switch>
+      {/* </div> */}
     </div>
   );
 };
