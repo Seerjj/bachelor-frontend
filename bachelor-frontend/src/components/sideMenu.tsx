@@ -42,18 +42,8 @@ const UnroutedMenubar: React.FC<MenubarProps> = props => {
 
   return (
     <React.Fragment>
-<<<<<<< HEAD
-      <Menu id="sidemenu" inverted vertical>
-        {/* {item(MenuItemName.RentalOverview)}
-        {item(MenuItemName.Houses)}
-        {item(MenuItemName.Customers)}
-        {item(MenuItemName.Materials)}
-        {item(MenuItemName.Production)} */}
-        {item("RentalOverviews")}
-=======
       <Menu className="sidemenu" inverted vertical>
-        {item("RentalOverview")}
->>>>>>> dev
+        {/* {item("RentalOverview")} */}
         {item("Houses")}
         {item("Customers")}
         {item("Materials")}
