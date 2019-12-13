@@ -7,7 +7,7 @@ import Production from "../pages/Production";
 import Materials from "../pages/Materials";
 import "../css/main.css"
 import Login from "./LogInForm";
-import RentalOverview from "../pages/RentalOverview";
+// import RentalOverview from "../pages/RentalOverview";
 import { Customers } from "../pages/Customers";
 
 export const MainPage: React.FC = () => {
@@ -16,7 +16,7 @@ export const MainPage: React.FC = () => {
       <div className="main-container__content">
       <Switch>
         <Route exact path="/login" component={Login}/>
-        <Route exact path={Path.RentalOverview} component={RentalOverview} />
+        {/* <Route exact path={Path.RentalOverview} component={RentalOverview} /> */}
         <Route exact path={Path.Houses} component={Houses} />
         <Route exact path={Path.Customers} component={Customers} />
         <Route exact path={Path.Materials} component={Materials} />
