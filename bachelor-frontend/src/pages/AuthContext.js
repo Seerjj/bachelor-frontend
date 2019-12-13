@@ -38,69 +38,118 @@ class AuthProviderComponent extends Component {
     }
   };
 
-  login(values) {
+  async login(values) {
     var email = values ? values.email : "1";
     var password = values ? values.password : "12345";
     var token = values ? values.token : "12";
     var refreshToken = values ? values.refreshToken : "12";
+    console.log(email)
+    console.log(password)
+    console.log(token)
+    console.log(refreshToken)
 
     if (this.state.isAuth) {
+      console.log("bad set up")
       // you shouldn't really end up here, if you end up in here, you've wrongly set up your routes / componetns
     } else {
-      fetch("http://localhost:54263/api/v1/identity/login", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          token: `Bearer ${token}`,
-          refreshToken: refreshToken
-        },
-        body: JSON.stringify({
-          email: email,
-          Password: password,
-          token: token
-        })
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw Error("Network request failed");
-          } else {
-            return response.json();
-          }
-        })
-        .then(response => {
-          if (values.onLogin) {
-            values.onLogin.call(this);
-            this.setToken(response.token);
-            this.setState(
-              () => ({
-                isAuth: true,
-                token: response.token,
-                headers: {
-                  "Content-Type": "application/json",
-                  token: `Bearer ${response.token}`,
 
-                  refreshToken: response.refreshToken
-                }
-              }),
-              () => {
-                this.checkLogin();
-              }
-            );
+      try {
+        const data = await postData('http://localhost:54263/api/v1/identity/login', { email: email,
+        password: password });
+        console.log(JSON.stringify(data)); // JSON-string from `response.json()` call
+        values.onLogin.call(this);
+        this.setToken(data.token);
+        console.log("GOT TOKEN BY WINDOW: " + window.sessionStorage.getItem("token"))
+        this.setState(
+          () => ({
+            isAuth: true,
+            token: data.token,
+            headers: {
+              "Content-Type": "application/json",
+              token: `Bearer ${data.token}`,
+
+              refreshToken: data.refreshToken
+            }
+          }),
+          () => {
+            this.checkLogin();
           }
-          return Promise.resolve(response);
-        })
-        .catch(err => console.log(err));
-    }
+        );
+      } catch (error) {
+        console.error(error);
+      }
+      
+      async function postData(url = '', data = {}) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          //mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrer: 'no-referrer', // no-referrer, *client
+          body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return await response.json(); // parses JSON response into native JavaScript objects
+      }
+    //   fetch("http://localhost:54263/api/v1/identity/login", {
+    //     method: "post",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       token: `Bearer ${token}`,
+    //       refreshToken: refreshToken
+    //     },
+    //     body: JSON.stringify({
+    //       email: email,
+    //       Password: password
+    //     })
+    //   })
+    //     .then(response => {
+    //       if (!response.ok) {
+    //         throw Error("Network request failed");
+    //       } else {
+    //         return response.json();
+    //       }
+    //     })
+    //     .then(response => {
+    //       if (values.onLogin) {
+    //         values.onLogin.call(this);
+    //         this.setToken(response.token);
+    //         this.setState(
+    //           () => ({
+    //             isAuth: true,
+    //             token: response.token,
+    //             headers: {
+    //               "Content-Type": "application/json",
+    //               token: `Bearer ${response.token}`,
+
+    //               refreshToken: response.refreshToken
+    //             }
+    //           }),
+    //           () => {
+    //             this.checkLogin();
+    //           }
+    //         );
+    //       }
+    //       return Promise.resolve(response);
+    //     })
+    //     .catch(err => console.log(err));
+     }
   }
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken(); // GEtting token from localstorage
+    //localStorage.removeItem("token")
     return !!token; // handwaiving here
   }
 
   setToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem("token", idToken);
+    window.localStorage.setItem("token", idToken);
   }
 
   getToken() {
@@ -134,7 +183,8 @@ class AuthProviderComponent extends Component {
 
   logout() {
     this.setState({ isAuth: false, user: {} });
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+
   }
   _checkStatus(response) {
     // raises an error in case response status is not a success

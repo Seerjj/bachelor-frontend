@@ -4,14 +4,16 @@ export enum Path {
   Customers = "/customers",
   Materials = "/materials",
   Production = "/production",
-  Login = "/login"
+  Login = "/login",
+  QR = "/qr-reader"
 }
 export const NameToPath = {
   RentalOverview: "/rentaloverview",
   Houses: "/houses",
   Customers: "/customers",
   Materials: "/materials",
-  Production: "/production"
+  Production: "/production",
+  QR: "/qr-reader"
 };
 
 export const pathToName = {
@@ -19,7 +21,8 @@ export const pathToName = {
   "/houses": "Houses",
   "/customers": "Customers",
   "/materials": "Materials",
-  "/production": "Production"
+  "/production": "Production",
+  "/qr-reader" : "QR"
 };
 
 export enum MenuItemName {
@@ -28,13 +31,14 @@ export enum MenuItemName {
   Customers = "Customers",
   Materials = "Materials",
   Production = "Production",
+  QR = "QR",
   None = "none"
 }
 
 export enum FMURL {
   //     RentalOverview = "http://",
   //     Houses = "http://",
-  Customers = "https://localhost:44352/api/v1/customers",
+  Customers = "http://localhost:54263/api/v1/customers",
   Login = "login"
   //     Materials = "http://",
   //     Production = "http://"

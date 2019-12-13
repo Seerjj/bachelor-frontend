@@ -152,9 +152,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
               <Input
                 placeholder="Customer name"
                 value={getCustomerPropAsString(activeCustomer, "companyName")}
-                onChange={v =>
-                  updateActiveCustomer({ field: "companyName", value: v })
-                }
+                // onChange={v =>
+                //   updateActiveCustomer({ field: "companyName", value: v })
+                // }
                 error={!getCustomerPropAsString(activeCustomer, "companyName")}
                 small
               />
@@ -323,9 +323,9 @@ function CustomerInfoField(props: {
       disabled={!props.onChange && props.extra.setupIsActive}
       label={props.label}
       value={v}
-      onChange={
-        props.onChange && props.extra.setupIsActive ? props.onChange : undefined
-      }
+      // onChange={
+      //   props.onChange && props.extra.setupIsActive ? props.onChange : undefined
+      // }
       focus={props.focus ? props.extra.setupIsActive : false}
       error={props.extra.setupIsActive && !v && props.err}
       small

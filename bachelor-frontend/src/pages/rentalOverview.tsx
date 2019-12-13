@@ -4,7 +4,7 @@ import { Table } from "semantic-ui-react";
 const RentalOverview: React.FC = () => {
   return (
     <div id="tableContainer">
-      <Table striped fixed celled >
+      <Table striped fixed celled>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell width={5}>Rented Houses</Table.HeaderCell>
