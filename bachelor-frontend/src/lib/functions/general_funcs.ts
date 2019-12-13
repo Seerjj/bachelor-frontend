@@ -56,7 +56,7 @@ export async function doFetch(
   try {
     const headers = new Headers();
     headers.set("Content-Type", "application/json");
-    // headers.set("iToken", localStorage.getItem("iToken") + "");
+    headers.set("token", localStorage.getItem("token") + "");
     const response = await fetch(url, {
       headers: headers,
       method: method,

@@ -182,8 +182,8 @@ class AuthProviderComponent extends Component {
   // setting timeout to mimic an async login
 
   logout() {
-    this.setState({ isAuth: false, user: {} });
-    sessionStorage.removeItem("token");
+    //this.setState({ isAuth: false, user: {} });
+    localStorage.removeItem("token");
 
   }
   _checkStatus(response) {

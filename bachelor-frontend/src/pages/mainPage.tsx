@@ -6,7 +6,7 @@ import Houses from "../pages/Houses";
 import Production from "../pages/Production";
 import Materials from "../pages/Materials";
 import "../css/main.css";
-import RentalOverview from "../pages/RentalOverview";
+//import RentalOverview from "../pages/RentalOverview";
 import { Customers } from "../pages/Customers";
 import  Login  from "./login";
 import ProtectedRoute from "./ProtectedRoute";
@@ -18,10 +18,10 @@ export const MainPage: React.FC = () => {
       {/* <div className="main-container__content"> */}
         <Switch>
           <Route exact path="/" component={Login} />
-          <ProtectedRoute
+          {/* <ProtectedRoute
             path={Path.RentalOverview}
             component={RentalOverview}
-          />
+          /> */}
           <ProtectedRoute path={Path.Houses} component={Houses} />
           <ProtectedRoute path={Path.Customers} component={Customers} />
           <ProtectedRoute path={Path.Materials} component={Materials} />

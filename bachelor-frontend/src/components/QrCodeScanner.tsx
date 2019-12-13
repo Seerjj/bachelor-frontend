@@ -16,12 +16,7 @@ const QrCodeReader: React.FC = () => {
 
     navigator.getUserMedia({video: true}, () => console.log("QR Scanner is active"), err => console.error(err));
  
-    let handleScan = (data:any) => {
-        if (data){
-            let url = "http://localhost:54263/api/v1/fmhousetypes/bytype/" + data;
-            fetchData(url);
-        }
-    }
+    
 
     // const response = await fetch(url, {
     //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -37,10 +32,17 @@ const QrCodeReader: React.FC = () => {
     //     body: JSON.stringify(data) // body data type must match "Content-Type" header
     //   });
 
+    let handleScan = (data:any) => {
+        if (data){
+            let url = `http://localhost:54263/api/v1/fmhousetypes/bytype/${data}`;
+            fetchData(url);
+        }
+    }
+
     let handleError = (err: any) => {
         console.error(err)
     }
-
+    
     async function fetchData(url: string) {
         setIsFetching(true);
         
@@ -58,9 +60,15 @@ const QrCodeReader: React.FC = () => {
             res => {
             setHouse(res);
             setIsFetching(false);
-            let info = "House ID: " + res.id + ", " +
-                        "House Type: " + res.houseType + ", " +
-                        "Materials: " + res.materialsOnHouse;
+            let info = "";
+            if(res.id != undefined){
+                info = "House ID: " + res.id + ", " +
+                "House Type: " + res.houseType + ", " +
+                "Materials: " + res.materialsOnHouse;
+            }
+            else{
+                info = "undefined"
+            }
 
             setState(info);
             },
@@ -76,6 +84,13 @@ const QrCodeReader: React.FC = () => {
     // fetchData(state);
     // },[]);
 
+    let displayData = () =>
+    {
+        if(state != "undefined")
+            return state;
+        else return "Result Not Found"
+    }
+
     return (
     <div>
         <QrReader
@@ -85,7 +100,7 @@ const QrCodeReader: React.FC = () => {
         style={{ width: '26%'}}
         />
         <div>
-            <p style={{fontSize: '20px', width: "18em"}}> {state} </p>
+            <p style={{fontSize: '20px', width: "18em"}}> {displayData()} </p>
         </div>
     </div>
     )
