@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "./images/LogoRemastered.png";
-import { Header, Icon, Image } from "semantic-ui-react";
+import { Header, Icon, Image, Button } from "semantic-ui-react";
+import {AuthConsumer,} from "../pages/AuthContext"
 
 const HeaderComponent = () => (
   <div>

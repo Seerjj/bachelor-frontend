@@ -26,7 +26,7 @@ class Login extends Component {
           {({ login }) => (
             <Form
               onSubmit={values => {
-                console.log(values);
+                //console.log(values);
 
                 login({
                   email: values.email,

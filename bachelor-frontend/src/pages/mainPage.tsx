@@ -10,11 +10,12 @@ import "../css/main.css";
 import { Customers } from "../pages/Customers";
 import  Login  from "./login";
 import ProtectedRoute from "./ProtectedRoute";
+import QRReader from "../components/QrCodeScanner"
 
 export const MainPage: React.FC = () => {
   return (
     <div className="main-container">
-      <div className="main-container__content">
+      {/* <div className="main-container__content"> */}
         <Switch>
           <Route exact path="/" component={Login} />
           {/* <ProtectedRoute
@@ -26,7 +27,7 @@ export const MainPage: React.FC = () => {
           <ProtectedRoute path={Path.Materials} component={Material} />
           <ProtectedRoute path={Path.Production} component={ProductionInformation} />
         </Switch>
-      </div>
+      {/* </div> */}
     </div>
   );
 };

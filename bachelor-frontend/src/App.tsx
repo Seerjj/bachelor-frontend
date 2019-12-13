@@ -34,6 +34,7 @@ const App: React.FC = () => {
           }}
           searchCallback={(input: string) => alert(input)}
         />
+        
         <MainPage />
       </AuthProvider>
     </div>

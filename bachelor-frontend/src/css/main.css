@@ -11,15 +11,16 @@
 
 
 .main-container {
-  height: calc(100vh - 42px);
   padding-top: 10px;
   background-color: #8D7966;
   display: grid;
-  grid-template-columns: auto [main-content-start] 1400px [main-content-end] auto;
-  overflow-y: auto; }
-  .main-container__content {
-    grid-column: main-content-start;
-    margin: 0 10px 200px; }
+  /* grid-template-columns: auto [main-content-start] 1400px [main-content-end] auto; */
+  overflow-y: auto; 
+}
+
+/* .main-container__content {
+  grid-column: main-content-start;
+  margin: 0 10px 200px; } */
 
 .monitor__job-info {
   display: grid;
