@@ -51,41 +51,26 @@ export const Customers: React.FC = () => {
     fetchCustomers();
   }, [fetchCustomers]);
 
-  // async function fetchCustomers() {
-  //   setIsFetching(true);
-  //   const res = await fetch(FMURL.Customers);
-  //   res.json().then(
-  //     res => {
-  //       setCustomers(res);
-  //       setIsFetching(false);
-  //     },
-  //     res => {
-  //       setModalText(res.Message);
-  //       setShowModal(true);
-  //       setIsFetching(false);
-  //     }
-  //   );
-  // }
-
-  // useEffect(() => {
-  //   fetchCustomers();
-  // }, []);
   function handleCustomerClick(customer: Customer) {
     setSetupIsActive(false);
     setCurrentCustomer(customer);
+    console.log(customer);
   }
 
   return (
-    <div>
-      <Table celled
+      <div>
+      <Table celled selectable
+    
         // onRowClick={handleCustomerClick}
         // // columns={columns}
         // // rows={customers}
         // setRows={setCustomers}
         // pagination="menu"
         // searchable
-        // selectedRow={currentCustomer}
+        //selectedRow={currentCustomer}
       >
+        
+        <Table.Header>
         <Table.Row>
         <Table.HeaderCell>Company Name</Table.HeaderCell>
         <Table.HeaderCell>Company Town</Table.HeaderCell>
@@ -95,7 +80,14 @@ export const Customers: React.FC = () => {
         <Table.HeaderCell>Contact Person</Table.HeaderCell>
 
         </Table.Row>
+        </Table.Header>
+
         {customers.map(customer => (
+          
+          <Table.Body>
+            <div onClick= {() =>
+                  handleCustomerClick(customer)
+                }>
           <Table.Row>
             <Table.Cell>{customer.companyName}</Table.Cell>
             <Table.Cell>{customer.companyTown}</Table.Cell>
@@ -104,14 +96,23 @@ export const Customers: React.FC = () => {
             <Table.Cell>{customer.contactNumber}</Table.Cell>
             <Table.Cell>{customer.contactPerson}</Table.Cell>
           </Table.Row>
+          </div>
+          </Table.Body>
         ))}
+        
+        
       </Table>
       <CustomerInformation
-         currentCustomer={currentCustomer}
-         onNewCurrentCustomer={setCurrentCustomer}
-         setupIsActive={setupIsActive}
-         onSetupStateChange={setSetupIsActive}
-         fetchCustomers={fetchCustomers}
+      currentCustomer={currentCustomer}
+      fetchCustomers={fetchCustomers}
+      onNewCurrentCustomer={setCurrentCustomer}
+      onSetupStateChange={setSetupIsActive}
+
+        //  currentCustomer={currentCustomer}
+        //  onNewCurrentCustomer={setCurrentCustomer}
+          setupIsActive={setupIsActive}
+        //  onSetupStateChange={setSetupIsActive}
+        //  fetchCustomers={fetchCustomers}
        /> 
     </div>
   );

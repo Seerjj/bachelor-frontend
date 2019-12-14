@@ -83,11 +83,10 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
       () => setShowPopup(true)
     );
   }
-
   function postCustomer(onSuccess: () => void) {
-    const id = getProp(activeCustomer, "customerId");
+    const name = getProp(activeCustomer, "companyName");
 
-    if (!id) {
+    if (!name) {
       logError(
         "Customer post was possible to perform on a customer without a name",
         ErrorSeverity.Medium
@@ -96,10 +95,10 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
     }
     doFetch(
       "POST",
-      FMURL.Customers,
+      `${FMURL.Customers}`,
       () => {
         props.fetchCustomers();
-        setPopupText(id + " created successfully");
+        setPopupText(name + " created successfully");
         onSuccess();
       },
       json => setPopupText(json.Message),
@@ -108,6 +107,12 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
       () => setShowPopup(true)
     );
   }
+
+
+
+
+
+
 
   function putCustomer(onSuccess: () => void) {
     const id = getProp(activeCustomer, "customerId");
@@ -152,19 +157,17 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
               <Input
                 placeholder="Customer name"
                 value={getCustomerPropAsString(activeCustomer, "companyName")}
-                // onChange={v =>
-                //   updateActiveCustomer({ field: "companyName", value: v })
-                // }
+                onChange={(e,data) =>
+                  updateActiveCustomer({ field: "companyName", value:data.value})
+                }
                 error={!getCustomerPropAsString(activeCustomer, "companyName")}
                 small
               />
             )}
           </div>
-
           <div className="monitor__job-info--setup-buttons">
             {!props.setupIsActive && (
               <Button
-                text="New"
                 onClick={() => {
                   savedCustomer.current = props.currentCustomer;
                   props.onNewCurrentCustomer(undefined);
@@ -172,12 +175,13 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                   setIsCreatingNew(true);
                   props.onSetupStateChange(true);
                 }}
-              />
+              >New
+                </Button>
             )}
             {props.setupIsActive && (
               <div>
                 <Button
-                  text="Cancel"
+                  
                   onClick={() => {
                     updateActiveCustomer({
                       field: "",
@@ -189,9 +193,10 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                     setIsCreatingNew(false);
                   }}
                   negative
-                />
+                >
+                  Cancel
+                </Button>
                 <Button
-                  text={isCreatingNew ? "Create" : "Save"}
                   onClick={() => {
                     const callback = () => {
                       updateActiveCustomer({ field: "", value: "", init: {} });
@@ -208,12 +213,12 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                   disabled={
                     !getCustomerPropAsString(activeCustomer, "companyName")
                   }
-                />
+                >{isCreatingNew ? "Create" : "Save"}
+                  </Button>
               </div>
             )}
             {props.currentCustomer && !props.setupIsActive && (
               <Button
-                text="Setup"
                 onClick={() => {
                   savedCustomer.current = props.currentCustomer;
                   props.onSetupStateChange(true);
@@ -239,98 +244,63 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
               </Button>
             )}
           </div>
-          <CustomerInfoField
-            label="customerId"
-            field="customerId"
-            onChange={v =>
-              updateActiveCustomer({ field: "customerId", value: v })
-            }
-            focus
-            extra={{ setupIsActive: props.setupIsActive, activeCustomer }}
-          />
-          <CustomerInfoField
+          <Input
             label="Company Name"
             field="companyName"
-            onChange={v =>
-              updateActiveCustomer({ field: "companyName", value: v })
+            onChange={(e,data )  =>  
+              updateActiveCustomer({ field: "companyName", value:data.value})
             }
+            
             focus
-            extra={{ setupIsActive: props.setupIsActive, activeCustomer }}
           />
-          <CustomerInfoField
-            label="companyTown"
+          
+          <Input
+            label="Company Town"
             field="companyTown"
-            onChange={v =>
-              updateActiveCustomer({ field: "companyTown", value: v })
+            onChange={(e,data) =>
+              updateActiveCustomer({ field: "companyTown", value:data.value})
             }
             focus
-            extra={{ setupIsActive: props.setupIsActive, activeCustomer }}
+           
           />
-          <CustomerInfoField
+          <Input
             label="companyStreet"
             field="companyStreet"
-            onChange={v =>
-              updateActiveCustomer({ field: "companyStreet", value: v })
+            onChange={(e,data) =>
+              updateActiveCustomer({ field: "companyStreet", value:data.value})
             }
             focus
-            extra={{ setupIsActive: props.setupIsActive, activeCustomer }}
+           
           />
-          <CustomerInfoField
+          <Input
             label="companyPostalCode"
             field="companyPostalCode"
-            onChange={v =>
-              updateActiveCustomer({ field: "companyPostalCode", value: v })
+            onChange={(e,data) =>
+              updateActiveCustomer({ field: "companyPostalCode", value:data.value})
             }
             focus
-            extra={{ setupIsActive: props.setupIsActive, activeCustomer }}
+           
           />
-          <CustomerInfoField
+          <Input
             label="contactNumber"
             field="contactNumber"
-            onChange={v =>
-              updateActiveCustomer({ field: "contactNumber", value: v })
+            onChange={(e,data) =>
+              updateActiveCustomer({ field: "contactNumber", value:data.value})
             }
             focus
-            extra={{ setupIsActive: props.setupIsActive, activeCustomer }}
+           
           />
-          <CustomerInfoField
+          <Input
             label="contactPerson"
             field="contactPerson"
-            onChange={v =>
-              updateActiveCustomer({ field: "contactPerson", value: v })
+            onChange={(e,data) =>
+              updateActiveCustomer({ field: "contactPerson", value:data.value})
             }
             focus
-            extra={{ setupIsActive: props.setupIsActive, activeCustomer }}
+           
           />
         </div>
       </Table>
     </React.Fragment>
   );
 };
-
-function CustomerInfoField(props: {
-  label: string;
-  field: CustomerField;
-  focus?: boolean;
-  err?: boolean;
-  onChange?(v: string): void;
-  className?: string;
-  extra: { activeCustomer: Customer; setupIsActive: boolean };
-}) {
-  const v = getCustomerPropAsString(props.extra.activeCustomer, props.field);
-  return (
-    <Input
-      disabled={!props.onChange && props.extra.setupIsActive}
-      label={props.label}
-      value={v}
-      // onChange={
-      //   props.onChange && props.extra.setupIsActive ? props.onChange : undefined
-      // }
-      focus={props.focus ? props.extra.setupIsActive : false}
-      error={props.extra.setupIsActive && !v && props.err}
-      small
-      alignToEdges
-      // className={props.className ? props.className : "monitor__job-info--wider-input"}
-    />
-  );
-}
