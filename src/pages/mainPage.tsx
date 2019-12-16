@@ -22,6 +22,7 @@ export const MainPage: React.FC = () => {
             path={Path.RentalOverviews}
             component={RentalOverview}
           /> */}
+          <ProtectedRoute path={Path.QR} component={QRReader}/>
           <ProtectedRoute path={Path.Houses} component={House} />
           <ProtectedRoute path={Path.Customers} component={Customers} />
           <ProtectedRoute path={Path.Materials} component={Material} />
