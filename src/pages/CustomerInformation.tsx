@@ -5,7 +5,7 @@ import React, {
   useRef,
   useEffect
 } from "react";
-import { Form, Button, Input,Table } from "semantic-ui-react";
+import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
 import { Customer, CustomerField } from "../lib/definitions/types";
 import {
   getProp,
@@ -15,6 +15,7 @@ import {
 } from "../lib/functions/general_funcs";
 import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
 import { getCustomerPropAsString } from "../lib/functions/customer_functions";
+import { createSecureContext } from "tls";
 
 function initActiveCustomer(customer: Customer | {}) {
   return JSON.parse(JSON.stringify(customer));
@@ -57,6 +58,10 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
     updateActiveCustomer({ field: "", value: "", init: props.currentCustomer });
   }, [props.currentCustomer]);
 
+  function changeValue() {
+    console.log("hfdjknfdk");
+  }
+
   function deleteCustomer() {
     if (!props.currentCustomer) {
       logError(
@@ -72,7 +77,8 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
       return;
     }
 
-    const name = props.currentCustomer.companyName;
+    const name = props.currentCustomer.id;
+    console.log(props.currentCustomer);
     doFetch(
       "DELETE",
       `${FMURL.Customers}/${name}`,
@@ -108,14 +114,8 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
     );
   }
 
-
-
-
-
-
-
   function putCustomer(onSuccess: () => void) {
-    const id = getProp(activeCustomer, "customerId");
+    const id = getProp(activeCustomer, "id");
 
     if (!id) {
       logError(
@@ -123,7 +123,7 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
         ErrorSeverity.Medium
       );
       return;
-    } 
+    }
 
     doFetch(
       "PUT",
@@ -157,8 +157,11 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
               <Input
                 placeholder="Customer name"
                 value={getCustomerPropAsString(activeCustomer, "companyName")}
-                onChange={(e,data) =>
-                  updateActiveCustomer({ field: "companyName", value:data.value})
+                onChange={(e, data) =>
+                  updateActiveCustomer({
+                    field: "companyName",
+                    value: data.value
+                  })
                 }
                 error={!getCustomerPropAsString(activeCustomer, "companyName")}
                 small
@@ -175,13 +178,13 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                   setIsCreatingNew(true);
                   props.onSetupStateChange(true);
                 }}
-              >New
-                </Button>
+              >
+                New
+              </Button>
             )}
             {props.setupIsActive && (
               <div>
                 <Button
-                  
                   onClick={() => {
                     updateActiveCustomer({
                       field: "",
@@ -213,8 +216,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                   disabled={
                     !getCustomerPropAsString(activeCustomer, "companyName")
                   }
-                >{isCreatingNew ? "Create" : "Save"}
-                  </Button>
+                >
+                  {isCreatingNew ? "Create" : "Save"}
+                </Button>
               </div>
             )}
             {props.currentCustomer && !props.setupIsActive && (
@@ -247,58 +251,94 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
           <Input
             label="Company Name"
             field="companyName"
-            onChange={(e,data )  =>  
-              updateActiveCustomer({ field: "companyName", value:data.value})
+            onChange={(e, data) =>
+              updateActiveCustomer({ field: "companyName", value: data.value })
             }
-            
+            value={getCustomerPropAsString(activeCustomer, "companyName")}
             focus
-          />
-          
+          ></Input>
+
           <Input
             label="Company Town"
             field="companyTown"
-            onChange={(e,data) =>
-              updateActiveCustomer({ field: "companyTown", value:data.value})
+            onChange={(e, data) =>
+              updateActiveCustomer({ field: "companyTown", value: data.value })
             }
+            value={getCustomerPropAsString(activeCustomer, "companyTown")}
             focus
-           
           />
           <Input
             label="companyStreet"
             field="companyStreet"
-            onChange={(e,data) =>
-              updateActiveCustomer({ field: "companyStreet", value:data.value})
+            onChange={(e, data) =>
+              updateActiveCustomer({
+                field: "companyStreet",
+                value: data.value
+              })
+              
             }
+            value={getCustomerPropAsString(activeCustomer, "companyStreet")}
             focus
-           
           />
           <Input
             label="companyPostalCode"
             field="companyPostalCode"
-            onChange={(e,data) =>
-              updateActiveCustomer({ field: "companyPostalCode", value:data.value})
+            onChange={(e, data) =>
+              updateActiveCustomer({
+                field: "companyPostalCode",
+                value: data.value
+              })
             }
+            value={getCustomerPropAsString(activeCustomer, "companyPostalCode")}
             focus
-           
           />
           <Input
             label="contactNumber"
             field="contactNumber"
-            onChange={(e,data) =>
-              updateActiveCustomer({ field: "contactNumber", value:data.value})
+            onChange={(e, data) =>
+              updateActiveCustomer({
+                field: "contactNumber",
+                value: data.value
+              })
             }
+            value={getCustomerPropAsString(activeCustomer, "contactNumber")}
             focus
-           
           />
           <Input
             label="contactPerson"
             field="contactPerson"
-            onChange={(e,data) =>
-              updateActiveCustomer({ field: "contactPerson", value:data.value})
+            onChange={(e, data) =>
+              updateActiveCustomer({
+                field: "contactPerson",
+                value: data.value
+              })
             }
+            value={getCustomerPropAsString(activeCustomer, "contactPerson")}
             focus
-           
           />
+
+          <Modal open={showDeletePopup}>
+            <Modal.Content>
+              {`Are you sure you want to delete ${
+                props.currentCustomer
+                  ? props.currentCustomer.companyName
+                  : "this customer"
+              }?`}
+            </Modal.Content>
+            <Modal.Actions>
+              <Button
+                onClick={() => {
+                  deleteCustomer();
+                  setShowDeletePopup(false);
+                }}
+              >
+                Yes
+              </Button>
+              <Button negative onClick={() => setShowDeletePopup(false)}>
+                No
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </div>
       </Table>
     </React.Fragment>
