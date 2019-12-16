@@ -58,10 +58,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
     updateActiveCustomer({ field: "", value: "", init: props.currentCustomer });
   }, [props.currentCustomer]);
 
-  function changeValue() {
-    console.log("hfdjknfdk");
-  }
-
   function deleteCustomer() {
     if (!props.currentCustomer) {
       logError(
@@ -77,18 +73,19 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
       return;
     }
 
-    const name = props.currentCustomer.id;
+    const id = props.currentCustomer.id;
     console.log(props.currentCustomer);
     doFetch(
       "DELETE",
-      `${FMURL.Customers}/${name}`,
-      () => setPopupText(name + " deleted successfully"),
+      `${FMURL.Customers}/${id}`,
+      () => setPopupText(id + " deleted successfully"),
       json => setPopupText(json.Message),
       error => setPopupText(error.toString()),
       "",
       () => setShowPopup(true)
     );
   }
+
   function postCustomer(onSuccess: () => void) {
     const name = getProp(activeCustomer, "companyName");
 
@@ -124,7 +121,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
       );
       return;
     }
-
     doFetch(
       "PUT",
       `${FMURL.Customers}/${id}`,
@@ -141,9 +137,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
   }
 
   let nameText = getCustomerPropAsString(activeCustomer, "companyName");
-  if (!activeCustomer) {
+  if (!nameText) {
     nameText = "No customer selected";
-  } else if (!nameText) {
+  } else if (!activeCustomer) {
     nameText = "No customer specified";
   }
 
@@ -152,6 +148,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
       <Table>
         <div className="monitor__job-info">
           <div className="monitor__job-info--status-name-box">
+
+
+
             {!isCreatingNew && nameText}
             {isCreatingNew && (
               <Input
@@ -164,10 +163,14 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                   })
                 }
                 error={!getCustomerPropAsString(activeCustomer, "companyName")}
-                small
               />
             )}
+
           </div>
+
+
+
+
           <div className="monitor__job-info--setup-buttons">
             {!props.setupIsActive && (
               <Button
@@ -199,6 +202,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                 >
                   Cancel
                 </Button>
+
+
+
                 <Button
                   onClick={() => {
                     const callback = () => {
@@ -219,6 +225,12 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                 >
                   {isCreatingNew ? "Create" : "Save"}
                 </Button>
+
+
+
+
+
+                
               </div>
             )}
             {props.currentCustomer && !props.setupIsActive && (
@@ -248,6 +260,8 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
               </Button>
             )}
           </div>
+
+
           <Input
             label="Company Name"
             field="companyName"
@@ -256,7 +270,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
             }
             value={getCustomerPropAsString(activeCustomer, "companyName")}
             focus
-          ></Input>
+          />
+          
+
 
           <Input
             label="Company Town"
@@ -267,6 +283,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
             value={getCustomerPropAsString(activeCustomer, "companyTown")}
             focus
           />
+
+
+
           <Input
             label="companyStreet"
             field="companyStreet"
@@ -275,7 +294,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                 field: "companyStreet",
                 value: data.value
               })
-              
             }
             value={getCustomerPropAsString(activeCustomer, "companyStreet")}
             focus

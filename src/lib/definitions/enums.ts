@@ -25,21 +25,21 @@ export const pathToName = {
   "/qr-reader" : "QR"
 };
 
-export enum MenuItemName {
-  RentalOverviews = "RentalOverviews",
-  Houses = "Houses",
-  Customers = "Customers",
-  Materials = "Materials",
-  Production = "Production",
-  QR = "QR",
-  None = "none"
-}
+// export enum MenuItemName {
+//   RentalOverviews = "RentalOverviews",
+//   Houses = "Houses",
+//   Customers = "Customers",
+//   Materials = "Materials",
+//   Production = "Production",
+//   QR = "QR",
+//   None = "none"
+// }
 
 export enum FMURL {
   RentalOverviews = "https://localhost:44310/api/v1/rentaloverviews",
   Houses = "https://localhost:44310/api/v1/fmhouses",
   Customers = "https://localhost:44310/api/v1/customers",
-  Login = "login",
+  Login = "https://localhost:44310/api/v1/identity/login",
   Materials = "https://localhost:44310/api/v1/materials",
   Production = "https://localhost:44310/api/v1/productioninformations"
 }
@@ -50,14 +50,13 @@ export enum ErrorSeverity {
   High = "High severity error"
 }
 
+export enum TypeOfError {
+  NetworkError = "network error",
+  CodeExecutionError = "code execution error"
+}
 
 export enum SortState {
   Ascending = "ascending",
   Descending = "descending",
   Off = "off"
-}
-
-export enum TypeOfError {
-  NetworkError = "network error",
-  CodeExecutionError = "code execution error"
 }
