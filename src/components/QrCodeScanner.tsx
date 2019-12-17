@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import QrReader from 'react-qr-reader'
 import { FMURL } from "../lib/definitions/enums";
-import { Houses } from "../lib/definitions/types"
+import { House } from "../lib/definitions/types"
 import { AuthProvider } from "../pages/AuthContext";
 //Used react-qr-reader
  
 const QrCodeReader: React.FC = () => {
 
     const [state, setState] = useState('No Result');
-    const [house, setHouse] = useState<Houses>();
+    const [house, setHouse] = useState<House>();
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [modalText, setModalText] = useState<string>("");

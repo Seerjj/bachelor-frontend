@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Message } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import { FMURL } from "../lib/definitions/enums";
 
 const AuthContext = React.createContext();
 // var basicAuth = require("basic-auth");
@@ -37,34 +38,26 @@ class AuthProviderComponent extends Component {
         Authorization: this.state
           .token /*refreshToken: this.state.refreshToken*/
       };
-      console.log("tstate", this.state);
-      // this.props.history.push("/customers");
-
-      // <Redirect push to={"/systems"} />;
+      this.props.history.push("/rentaloverviews");
     }
   };
 
   login(values) {
-    var email = values ? values.email : "1";
-    var password = values ? values.password : "12345";
-    var token = values ? values.token : "12";
-    // var refreshToken = values ? values.refreshToken : "12";
+    var email = values ? values.email : "";
+    var password = values ? values.password : "";
+    var token = values ? values.token : "";
 
     if (this.state.isAuth) {
-      // you shouldn't really end up here, if you end up in here, you've wrongly set up your routes / componetns
     } else {
-      fetch("https://localhost:44310/api/v1/identity/login", {
+      fetch(FMURL.Login, {
         method: "post",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
-          // refreshToken: `Bearer ${refreshToken}`
         },
         body: JSON.stringify({
           email: email,
-          Password: password,
-          Authorization: token
-          // refreshToken: refreshToken
+          Password: password
         })
       })
         .then(response => {
@@ -78,17 +71,13 @@ class AuthProviderComponent extends Component {
           if (values.onLogin) {
             values.onLogin.call(this);
             this.setToken(response.token);
-            // this.setRefreshToken(response.refreshToken)
             this.setState(
               () => ({
                 isAuth: true,
                 token: response.token,
-                // refreshToken: response.refreshToken,
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${response.token}`
-
-                  // refreshToken: `Bearer ${refreshToken}`
                 }
               }),
               () => {
@@ -101,15 +90,17 @@ class AuthProviderComponent extends Component {
         .catch(err => console.log(err));
     }
   }
+
   loggedIn() {
     // Checks if there is a saved token and it's still valid
-    // const refreshToken = this.getRefreshToken();
     const token = this.getToken(); // GEtting token from localstorage
-    return !!token; // handwaiving here
+    return !!token;
   }
+
   setRefreshToken(idToken) {
     localStorage.setItem("refreshToken", idToken);
   }
+
   setToken(idToken) {
     // Saves user token to localStorage
     localStorage.setItem("Authorization", `Bearer ${idToken}`);
@@ -150,10 +141,10 @@ class AuthProviderComponent extends Component {
     this.setState({ isAuth: false, user: {} });
     localStorage.removeItem("Authorization");
   }
+
   _checkStatus(response) {
     // raises an error in case response status is not a success
     if (response.status >= 200 && response.status < 300) {
-      // Success status lies between 200 to 300
       return response;
     } else {
       var error = new Error(response.statusText);
