@@ -34,7 +34,7 @@ const QrCodeReader: React.FC = () => {
 
     let handleScan = (data:any) => {
         if (data){
-            let url = `http://localhost:54263/api/v1/fmhousetypes/bytype/${data}`;
+            let url = `http://localhost:44310/api/v1/fmhousetypes/bytype/${data}`;
             fetchData(url);
         }
     }
