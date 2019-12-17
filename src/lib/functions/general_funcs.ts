@@ -1,44 +1,44 @@
 import {
-  MenuItemName,
+  // MenuItemName,
   Path,
   ErrorSeverity,
   TypeOfError
 } from "../definitions/enums";
 import { RestMethod, ApiMessage } from "../definitions/types";
 
-export function pathFromName(name: MenuItemName) {
-  switch (name) {
-    case MenuItemName.RentalOverviews:
-      return Path.RentalOverviews;
-    case MenuItemName.Houses:
-      return Path.Houses;
-    case MenuItemName.Customers:
-      return Path.Customers;
-    case MenuItemName.Materials:
-      return Path.Materials;
-    case MenuItemName.Production:
-      return Path.Production;
-    default:
-      return "/";
-  }
-}
+// export function pathFromName(name: MenuItemName) {
+//   switch (name) {
+//     case MenuItemName.RentalOverviews:
+//       return Path.RentalOverviews;
+//     case MenuItemName.Houses:
+//       return Path.Houses;
+//     case MenuItemName.Customers:
+//       return Path.Customers;
+//     case MenuItemName.Materials:
+//       return Path.Materials;
+//     case MenuItemName.Production:
+//       return Path.Production;
+//     default:
+//       return "/";
+//   }
+// }
 
-export function nameFromPath(path: Path) {
-  switch (path) {
-    case Path.RentalOverviews:
-      return MenuItemName.RentalOverviews;
-    case Path.Houses:
-      return MenuItemName.Houses;
-    case Path.Customers:
-      return MenuItemName.Customers;
-    case Path.Materials:
-      return MenuItemName.Materials;
-    case Path.Production:
-      return MenuItemName.Production;
-    default:
-      return MenuItemName.None;
-  }
-}
+// export function nameFromPath(path: Path) {
+//   switch (path) {
+//     case Path.RentalOverviews:
+//       return MenuItemName.RentalOverviews;
+//     case Path.Houses:
+//       return MenuItemName.Houses;
+//     case Path.Customers:
+//       return MenuItemName.Customers;
+//     case Path.Materials:
+//       return MenuItemName.Materials;
+//     case Path.Production:
+//       return MenuItemName.Production;
+//     default:
+//       return MenuItemName.None;
+//   }
+// }
 
 export function pickRouterProps(props: any) {
   return {
