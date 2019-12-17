@@ -2,7 +2,6 @@ import React, { useEffect, useState, useReducer, useCallback } from "react";
 import { Customer } from "../lib/definitions/types";
 import { doFetch, getProp } from "../lib/functions/general_funcs";
 import { FMURL } from "../lib/definitions/enums";
-import { async } from "q";
 import { RouteComponentProps, Link } from "react-router-dom";
 import { Table, Accordion, Form, Button } from "semantic-ui-react";
 import { CustomerInformation } from "../pages/CustomerInformation";
@@ -30,6 +29,7 @@ export const Customers: React.FC = () => {
   //   },
   //   { displayName: "SystemGroup", fieldName: "SystemGroup" }
   // ];
+
   const fetchCustomers = useCallback(() => {
     const url = FMURL.Customers;
     setIsFetchingCustomers(true);

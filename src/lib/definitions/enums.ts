@@ -5,6 +5,7 @@ export enum Path {
   Materials = "/materials",
   Production = "/production",
   Login = "/login",
+  Users = "/users",
   QR = "/qr-reader"
 }
 export const NameToPath = {
@@ -13,7 +14,9 @@ export const NameToPath = {
   Customers: "/customers",
   Materials: "/materials",
   Production: "/production",
+  Users: "/users",
   QR: "/qr-reader"
+  
 };
 
 export const pathToName = {
@@ -22,6 +25,7 @@ export const pathToName = {
   "/customers": "Customers",
   "/materials": "Materials",
   "/production": "Production",
+  "/users": "Users",
   "/qr-reader" : "QR"
 };
 
@@ -41,7 +45,8 @@ export enum FMURL {
   Customers = "https://localhost:44310/api/v1/customers",
   Login = "https://localhost:44310/api/v1/identity/login",
   Materials = "https://localhost:44310/api/v1/materials",
-  Production = "https://localhost:44310/api/v1/productioninformations"
+  Production = "https://localhost:44310/api/v1/productioninformations",
+  Users = "https://localhost:44310/api/v1/identity/users"
 }
 
 export enum ErrorSeverity {
