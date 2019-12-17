@@ -97,7 +97,7 @@ const QrCodeReader: React.FC = () => {
         delay={1000}
         onError={handleError}
         onScan={handleScan}
-        style={{ width: '26%'}}
+        style={{ width: '100%'}}
         />
         <div>
             <p style={{fontSize: '20px', width: "18em"}}> {displayData()} </p>

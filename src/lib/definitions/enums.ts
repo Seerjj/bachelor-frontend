@@ -1,5 +1,5 @@
 export enum Path {
-  RentalOverview = "/rentaloverview",
+  RentalOverviews = "/rentaloverviews",
   Houses = "/houses",
   Customers = "/customers",
   Materials = "/materials",
@@ -8,7 +8,7 @@ export enum Path {
   QR = "/qr-reader"
 }
 export const NameToPath = {
-  RentalOverview: "/rentaloverview",
+  RentalOverviews: "/rentaloverviews",
   Houses: "/houses",
   Customers: "/customers",
   Materials: "/materials",
@@ -17,7 +17,7 @@ export const NameToPath = {
 };
 
 export const pathToName = {
-  "/rentaloverview": "RentalOverview",
+  "/rentaloverviews": "RentalOverviews",
   "/houses": "Houses",
   "/customers": "Customers",
   "/materials": "Materials",
@@ -26,7 +26,7 @@ export const pathToName = {
 };
 
 export enum MenuItemName {
-  RentalOverview = "RentalOverview",
+  RentalOverviews = "RentalOverviews",
   Houses = "Houses",
   Customers = "Customers",
   Materials = "Materials",
@@ -36,12 +36,12 @@ export enum MenuItemName {
 }
 
 export enum FMURL {
-  //     RentalOverview = "http://",
-  //     Houses = "http://",
-  Customers = "http://localhost:54263/api/v1/customers",
-  Login = "login"
-  //     Materials = "http://",
-  //     Production = "http://"
+  RentalOverviews = "https://localhost:44310/api/v1/rentaloverviews",
+  Houses = "https://localhost:44310/api/v1/fmhouses",
+  Customers = "https://localhost:44310/api/v1/customers",
+  Login = "login",
+  Materials = "https://localhost:44310/api/v1/materials",
+  Production = "https://localhost:44310/api/v1/productioninformations"
 }
 
 export enum ErrorSeverity {

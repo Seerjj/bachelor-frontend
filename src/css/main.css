@@ -12,7 +12,7 @@
 
 .main-container {
   padding-top: 10px;
-  background-color: #e3e8ee;
+  background-color: #8D7966;
   display: grid;
   /* grid-template-columns: auto [main-content-start] 1400px [main-content-end] auto; */
   overflow-y: auto; 

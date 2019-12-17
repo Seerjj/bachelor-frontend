@@ -3,6 +3,9 @@ import { getProp } from "./general_funcs";
 
 export function getCustomerPropAsString(customer: Customer | undefined, field: CustomerField) {
     const value = getProp(customer, field);
+    console.log(value);
+    console.log(customer);
+    console.log(field)
     if (value === 0) {
       return 0 + "";
     }

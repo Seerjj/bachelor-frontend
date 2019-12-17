@@ -1,8 +1,7 @@
 export type RestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
-export interface RentalOverview {
-  rentalOverviewId: number;
-  rentedHouses: string | null;
+export interface RentalOverviews{
+  id: number;
   productionInformation: string | null;
   purchaseStatus: string | null;
   setupAddressTown: string | null;
@@ -11,23 +10,23 @@ export interface RentalOverview {
   estimatedPrice: string | null;
 }
 export interface Houses {
-  fmHouseId: number;
+  id: number;
   houseType: string | null;
   squareMeters: number | null;
 }
 
 export interface Customer {
-  customerId: number;
+  id: number;
   companyName: string | null;
   companyTown: string | null;
   companyStreet: string | null;
   companyPostalCode: string | null;
-  contactNumber: number | null;
+  contactNumber: string | null;
   contactPerson: string | null;
 }
 
 export type CustomerField = 
-|"customerId"
+|"id"
 |"companyName"
 |"companyTown"
 |"companyStreet"
@@ -37,7 +36,7 @@ export type CustomerField =
 
 
 export interface Materials {
-  materialId: number;
+  id: number;
   houseSection: string | null;
   category: string | null;
   name: string | null;
@@ -46,7 +45,7 @@ export interface Materials {
   pricePerUnit: string | null;
 }
 export interface Production {
-  productionInformationId: number;
+  id: number;
   house: string | null;
   houseId: number; //???? in sync with houses?
   customer: string | null; //??? in sync with actual customers?

@@ -1,10 +1,15 @@
-import { MenuItemName, Path, ErrorSeverity, TypeOfError } from "../definitions/enums";
+import {
+  MenuItemName,
+  Path,
+  ErrorSeverity,
+  TypeOfError
+} from "../definitions/enums";
 import { RestMethod, ApiMessage } from "../definitions/types";
 
 export function pathFromName(name: MenuItemName) {
   switch (name) {
-    case MenuItemName.RentalOverview:
-      return Path.RentalOverview;
+    case MenuItemName.RentalOverviews:
+      return Path.RentalOverviews;
     case MenuItemName.Houses:
       return Path.Houses;
     case MenuItemName.Customers:
@@ -20,8 +25,8 @@ export function pathFromName(name: MenuItemName) {
 
 export function nameFromPath(path: Path) {
   switch (path) {
-    case Path.RentalOverview:
-      return MenuItemName.RentalOverview;
+    case Path.RentalOverviews:
+      return MenuItemName.RentalOverviews;
     case Path.Houses:
       return MenuItemName.Houses;
     case Path.Customers:
@@ -48,7 +53,7 @@ export async function doFetch(
   url: string,
   onOK: (json: any) => void,
   onNotOK: (json: ApiMessage) => void,
-  onNetworkError: (error: typeof Error) => void,
+  onError: (message: string) => void,
   body?: string,
   finallyCallback?: () => void,
   signal?: AbortSignal
@@ -56,7 +61,7 @@ export async function doFetch(
   try {
     const headers = new Headers();
     headers.set("Content-Type", "application/json");
-    headers.set("token", localStorage.getItem("token") + "");
+    headers.set("Authorization", localStorage.getItem("Authorization") + "");
     const response = await fetch(url, {
       headers: headers,
       method: method,
@@ -64,23 +69,29 @@ export async function doFetch(
       body: body ? body : undefined
     });
 
-    try {
-      const responseBody = await response.json();
-      if (response.ok) {
+    if (response.ok) {
+      try {
+        const responseBody = await response.json();
         onOK(responseBody);
-      } else {
-        onNotOK(responseBody);
+      } catch (error) {
+        console.log(error);
+        onError(
+          `A ${TypeOfError.CodeExecutionError} occured. Check the console log for more information`
+        );
       }
-    } catch (error) {
-      if (response.ok) {
-        onOK({ Message: "Success" });
-      } else {
-        onNotOK({ Message: "Error" });
+    } else {
+      try {
+        const responseBody = await response.json();
+        onNotOK(responseBody);
+      } catch (error) {
+        onError(response.statusText);
       }
     }
   } catch (error) {
-    console.log(error, typeof error);
-    onNetworkError(error);
+    console.log(error);
+    onError(
+      `A ${TypeOfError.NetworkError} occured. Check the console log for more information`
+    );
   } finally {
     if (finallyCallback) {
       finallyCallback();
@@ -104,13 +115,16 @@ export async function doFetchNew(
     headers.set("refreshToken", localStorage.getItem("refreshToken") + "");
     headers.set("Content-Type", "application/json");
     headers.set("If-None-Match", '""');
-   
-    const response = await fetch(`https://localhost:44352/api/v1/identity/${url}`, {
-      headers: headers,
-      method: method,
-      signal: signal,
-      body: body ? body : undefined
-    });
+
+    const response = await fetch(
+      `https://localhost:44352/api/v1/identity/${url}`,
+      {
+        headers: headers,
+        method: method,
+        signal: signal,
+        body: body ? body : undefined
+      }
+    );
 
     try {
       const responseBody = await response.json();
@@ -127,15 +141,15 @@ export async function doFetchNew(
     }
   } catch (error) {
     console.log(error);
-    onError(`A ${TypeOfError.NetworkError} occured. Check the console log for more information`);
+    onError(
+      `A ${TypeOfError.NetworkError} occured. Check the console log for more information`
+    );
   } finally {
     if (finallyCallback) {
       finallyCallback();
     }
   }
 }
-
-
 
 export function logError(message: string, severity: ErrorSeverity) {
   console.log(severity + ": " + message);
