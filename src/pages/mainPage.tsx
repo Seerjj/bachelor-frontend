@@ -3,7 +3,6 @@ import { Grid } from "semantic-ui-react";
 import { Path } from "../lib/definitions/enums";
 import { Switch, Route } from "react-router";
 import { House } from "../pages/Houses";
-
 import { RentalOverviews } from "../pages/RentalOverviews";
 import { ProductionInformation } from "../pages/Production";
 import { Material } from "../pages/Materials";
