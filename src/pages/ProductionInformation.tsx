@@ -145,7 +145,6 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
   
     return (
       <React.Fragment>
-        <Table>
           <div className="monitor__job-info">
             <div className="monitor__job-info--status-name-box">
   
@@ -358,7 +357,6 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
               </Modal.Actions>
             </Modal>
           </div>
-        </Table>
       </React.Fragment>
     );
   };

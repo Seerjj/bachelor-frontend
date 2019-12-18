@@ -58,18 +58,19 @@ export const RentalOverviews: React.FC = () => {
             <Table.HeaderCell>Estimated Price</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {rentals.map(rental => (
-          <Table.Body onClick={() => handleRentalClick(rental)}>
-            <Table.Row>
-              <Table.Cell>{rental.productionInformation}</Table.Cell>
-              <Table.Cell>{rental.purchaseStatus}</Table.Cell>
-              <Table.Cell>{rental.setupAddressTown}</Table.Cell>
-              <Table.Cell>{rental.setupAddressStreet}</Table.Cell>
-              <Table.Cell>{rental.setupAddressPostalCode}</Table.Cell>
-              <Table.Cell>{rental.estimatedPrice}</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        ))}
+        {rentals.map(function(rental, i) {
+          return (
+          <Table.Body key={i} onClick={() => handleRentalClick(rental)}>
+          <Table.Row>
+            <Table.Cell>{rental.productionInformation}</Table.Cell>
+            <Table.Cell>{rental.purchaseStatus}</Table.Cell>
+            <Table.Cell>{rental.setupAddressTown}</Table.Cell>
+            <Table.Cell>{rental.setupAddressStreet}</Table.Cell>
+            <Table.Cell>{rental.setupAddressPostalCode}</Table.Cell>
+            <Table.Cell>{rental.estimatedPrice}</Table.Cell>
+          </Table.Row>
+        </Table.Body>)
+        } )}
       </Table>
       <RentalOverviewInformation
         currentRental={currentRental}

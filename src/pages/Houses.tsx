@@ -51,14 +51,16 @@ export const Houses: React.FC = () => {
             <Table.HeaderCell>Square meters</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {houses.map(house => (
-          <Table.Body onClick={() => handleHouseClick(house)}>
-            <Table.Row>
-              <Table.Cell>{house.houseType}</Table.Cell>
-              <Table.Cell>{house.squareMeters}</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        ))}
+        {houses.map(function(house, i) {
+          return (
+            <Table.Body onClick={() => handleHouseClick(house)} key = {i}>
+              <Table.Row>
+                <Table.Cell>{house.houseType}</Table.Cell>
+                <Table.Cell>{house.squareMeters}</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          )
+        })}
     </Table>
     <HouseInformation
         currentHouse={currentHouse}

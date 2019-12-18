@@ -70,8 +70,8 @@ export const Customers: React.FC = () => {
             <Table.HeaderCell>Contact Person</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {customers.map(customer => (
-          <Table.Body onClick={() => handleCustomerClick(customer)}>
+        {customers.map(function(customer, i) { return (
+          <Table.Body onClick={() => handleCustomerClick(customer)} key = {i}>
             <Table.Row>
               <Table.Cell>{customer.companyName}</Table.Cell>
               <Table.Cell>{customer.companyTown}</Table.Cell>
@@ -81,7 +81,7 @@ export const Customers: React.FC = () => {
               <Table.Cell>{customer.contactPerson}</Table.Cell>
             </Table.Row>
           </Table.Body>
-        ))}
+        )})}
       </Table>
       <CustomerInformation
         currentCustomer={currentCustomer}

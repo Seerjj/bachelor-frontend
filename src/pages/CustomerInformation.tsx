@@ -145,7 +145,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
 
   return (
     <React.Fragment>
-      <Table>
         <div className="monitor__job-info">
           <div className="monitor__job-info--status-name-box">
 
@@ -358,7 +357,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
             </Modal.Actions>
           </Modal>
         </div>
-      </Table>
     </React.Fragment>
   );
 };

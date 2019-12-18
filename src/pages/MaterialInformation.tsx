@@ -145,7 +145,6 @@ import { getMaterialPropAsString } from "../lib/functions/materials_functions";
   
     return (
       <React.Fragment>
-        <Table>
           <div className="monitor__job-info">
             <div className="monitor__job-info--status-name-box">
   
@@ -369,7 +368,6 @@ import { getMaterialPropAsString } from "../lib/functions/materials_functions";
               </Modal.Actions>
             </Modal>
           </div>
-        </Table>
       </React.Fragment>
     );
   };

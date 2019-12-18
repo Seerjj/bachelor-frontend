@@ -5,7 +5,7 @@ import React, {
     useRef,
     useEffect
   } from "react";
-  import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
+  import { Form, Button, Input, Table, Popup, Modal, TableBody } from "semantic-ui-react";
   import {
     getProp,
     setProp,
@@ -145,7 +145,6 @@ import { getRentalOverviewPropAsString } from "../lib/functions/rentaloverviews_
   
     return (
       <React.Fragment>
-        <Table>
           <div className="monitor__job-info">
             <div className="monitor__job-info--status-name-box">
   
@@ -355,7 +354,6 @@ import { getRentalOverviewPropAsString } from "../lib/functions/rentaloverviews_
               </Modal.Actions>
             </Modal>
           </div>
-        </Table>
       </React.Fragment>
     );
   };

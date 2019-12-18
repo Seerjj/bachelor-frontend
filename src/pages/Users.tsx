@@ -43,24 +43,28 @@ export const Users: React.FC = () => {
             <Table.HeaderCell>Role</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {users.map(user => (
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell>{user.userName}</Table.Cell>
-              <Table.Cell>{user.email}</Table.Cell>
-              <Table.Cell>
-                <Select
-                  placeholder="Select role"
-                  selection
-                  options={users.map(user => (
-                    <option value={user.roles[0]}>{user.roles[0]}</option>
-                  ))}
-                ></Select>
-                <Icon size="large" name="save"></Icon>
-              </Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        ))}
+        {users.map(function(user,i) {
+          return (
+            <Table.Body key={i}>
+              <Table.Row>
+                <Table.Cell>{user.userName}</Table.Cell>
+                <Table.Cell>{user.email}</Table.Cell>
+                <Table.Cell>
+                  <Select
+                    placeholder="Select role"
+                    selection
+                    options={users.map(function(user,i) {
+                      return (
+                        <option value={user.roles[0]}>{user.roles[0]}</option>
+                      )
+                    } )}
+                  ></Select>
+                  <Icon size="large" name="save"></Icon>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          )
+        } )}
       </Table>
     </div>
   );

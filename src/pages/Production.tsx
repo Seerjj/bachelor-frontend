@@ -64,9 +64,9 @@ export const ProductionInformations: React.FC = () => {
             <Table.HeaderCell>lastUpdatedDate</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {productions.map(production => (
+        {productions.map(function(production, i) { return (
           <Table.Body
-          onClick={() => handleProductionClick(production)}>
+          onClick={() => handleProductionClick(production)} key={i}>
             <Table.Row>
               <Table.Cell>
                 <Link
@@ -90,7 +90,7 @@ export const ProductionInformations: React.FC = () => {
               <Table.Cell>{production.lastUpdatedDate}</Table.Cell>
             </Table.Row>
           </Table.Body>
-        ))}
+        )} )}
       </Table>
       <ProductionInformation
         currentProduction={currentProduction}

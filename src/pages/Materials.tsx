@@ -55,8 +55,8 @@ export const Materials: React.FC = () => {
             <Table.HeaderCell>Price Per Unit</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {materials.map(material => (
-          <Table.Body onClick={() => handleMaterialClick(material)}>
+        {materials.map(function(material, i) { return (
+          <Table.Body onClick={() => handleMaterialClick(material)} key ={i}>
             <Table.Row>
               <Table.Cell>{material.name}</Table.Cell>
               <Table.Cell>{material.category}</Table.Cell>
@@ -66,7 +66,7 @@ export const Materials: React.FC = () => {
               <Table.Cell>{material.pricePerUnit}</Table.Cell>
             </Table.Row>
           </Table.Body>
-        ))}
+        )})}
       </Table>
       <MaterialInformation
         currentMaterial={currentMaterial}

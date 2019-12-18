@@ -145,7 +145,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
   
     return (
       <React.Fragment>
-        <Table>
           <div className="monitor__job-info">
             <div className="monitor__job-info--status-name-box">
   
@@ -311,7 +310,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
               </Modal.Actions>
             </Modal>
           </div>
-        </Table>
       </React.Fragment>
     );
   };
