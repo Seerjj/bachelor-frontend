@@ -1,36 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import QrReader from 'react-qr-reader'
-import { FMURL } from "../lib/definitions/enums";
-import { Houses } from "../lib/definitions/types"
-import { AuthProvider } from "../pages/AuthContext";
-//Used react-qr-reader
+import { House } from "../lib/definitions/types"
  
 const QrCodeReader: React.FC = () => {
 
     const [state, setState] = useState('No Result');
-    const [house, setHouse] = useState<Houses>();
+    const [house, setHouse] = useState<House>();
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [modalText, setModalText] = useState<string>("");
-    const [setupIsActive, setSetupIsActive] = useState(false);
 
     navigator.getUserMedia({video: true}, () => console.log("QR Scanner is active"), err => console.error(err));
- 
-    
-
-    // const response = await fetch(url, {
-    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    //     //mode: 'cors', // no-cors, *cors, same-origin
-    //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    //     credentials: 'same-origin', // include, *same-origin, omit
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //       // 'Content-Type': 'application/x-www-form-urlencoded',
-    //     },
-    //     redirect: 'follow', // manual, *follow, error
-    //     referrer: 'no-referrer', // no-referrer, *client
-    //     body: JSON.stringify(data) // body data type must match "Content-Type" header
-    //   });
 
     let handleScan = (data:any) => {
         if (data){
@@ -61,7 +41,7 @@ const QrCodeReader: React.FC = () => {
             setHouse(res);
             setIsFetching(false);
             let info = "";
-            if(res.id != undefined){
+            if(res.id !== undefined){
                 info = "House ID: " + res.id + ", " +
                 "House Type: " + res.houseType + ", " +
                 "Materials: " + res.materialsOnHouse;
@@ -79,14 +59,10 @@ const QrCodeReader: React.FC = () => {
             }
         );
     }
-    
-    // useEffect(() => {
-    // fetchData(state);
-    // },[]);
 
     let displayData = () =>
     {
-        if(state != "undefined")
+        if(state !== "undefined")
             return state;
         else return "Result Not Found"
     }

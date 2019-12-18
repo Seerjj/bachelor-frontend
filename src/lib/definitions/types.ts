@@ -1,6 +1,6 @@
 export type RestMethod = "GET" | "POST" | "PUT" | "DELETE";
 
-export interface RentalOverviews{
+export interface RentalOverview {
   id: number;
   productionInformation: string | null;
   purchaseStatus: string | null;
@@ -9,11 +9,35 @@ export interface RentalOverviews{
   setupAddressPostalCode: string | null;
   estimatedPrice: string | null;
 }
-export interface Houses {
+
+export type RentalOverviewField =
+  | "id"
+  | "productionInformation"
+  | "purchaseStatus"
+  | "setupAddressTown"
+  | "setupAddressStreet"
+  | "setupAddressPostalCode"
+  | "estimatedPrice";
+
+export interface House {
   id: number;
   houseType: string | null;
   squareMeters: number | null;
 }
+
+export type HouseField = "id" | "houseType" | "squareMeters"
+
+
+;
+
+export interface User {
+  id: string;
+  userName: string;
+  email: string;
+  roles: [string];
+}
+
+export type UserField = "id" | "userName" | "email" | "roles";
 
 export interface Customer {
   id: number;
@@ -25,17 +49,16 @@ export interface Customer {
   contactPerson: string | null;
 }
 
-export type CustomerField = 
-|"id"
-|"companyName"
-|"companyTown"
-|"companyStreet"
-|"companyPostalCode"
-|"contactNumber"
-|"contactPerson"
+export type CustomerField =
+  | "id"
+  | "companyName"
+  | "companyTown"
+  | "companyStreet"
+  | "companyPostalCode"
+  | "contactNumber"
+  | "contactPerson";
 
-
-export interface Materials {
+export interface Material {
   id: number;
   houseSection: string | null;
   category: string | null;
@@ -44,20 +67,64 @@ export interface Materials {
   units: string | null;
   pricePerUnit: string | null;
 }
+
+export type MaterialField =
+  | "id"
+  | "houseSection"
+  | "category"
+  | "name"
+  | "supplier"
+  | "units"
+  | "pricePerUnit";
+
 export interface Production {
   id: number;
-  house: string | null;
-  houseId: number; //???? in sync with houses?
-  customer: string | null; //??? in sync with actual customers?
-  exteriorWalls: string | null;
-  ventilation: string | null;
-  note: string | null;
-  productionPrice: string | null;
-  productionDate: string | null;
-  additionalCosts: string | null;
-  lastUpdatedBy: string | null;
-  lastUpdatedDate: string | null;
+  houseId: number;
+  rents: string;
+  customer: {
+    companyName: string;
+    companyTown: string;
+    companyStreet: string;
+    companyPostalCode: string;
+    contactNumber: string;
+    contactPerson: string;
+    id: number;
+  };
+  exteriorWalls: string;
+  ventilation: string;
+  note: string;
+  productionPrice: string;
+  productionDate: string;
+  additionalCosts: string;
+  lastUpdatedBy: string;
+  lastUpdatedDate: string;
+  isActive: string;
 }
+
+export type ProductionField =
+  | "id"
+  | "houseId"
+  | "rents"
+  | "customer"
+  |"customer.id"
+|"customer.companyName"
+|"customer.companyTown"
+|"customer.companyStreet"
+|"customer.companyPostalCode"
+|"customer.contactNumber"
+|"customer.contactPerson"
+
+  
+  | "exteriorWalls"
+  | "ventilation"
+  | "note"
+  | "productionPrice"
+  | "productionDate"
+  | "additionalCosts"
+  | "lastUpdatedBy"
+  | "lastUpdatedDate"
+  | "isActive";
+
 export interface ApiMessage {
   Message: string;
 }

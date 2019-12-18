@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Table } from "semantic-ui-react";
-import { Houses } from "../lib/definitions/types";
+import { House } from "../lib/definitions/types";
 import { FMURL } from "../lib/definitions/enums";
-import { async } from "q";
 import { doFetch } from "../lib/functions/general_funcs";
+import { HouseInformation } from "./HouseInformation";
 
-export const House: React.FC = () => {
-  const [houses, setHouses] = useState<Houses[]>([]);
+export const Houses: React.FC = () => {
+
+  
+  const [currentHouse, setCurrentHouse] = useState<House>();
+  const [houses, setHouses] = useState<House[]>([]);
   const [isFetchingHouses, setIsFetchingHouses] = useState(false);
   const [popupText, setPopupText] = useState("");
+
+  const [setupIsActive, setSetupIsActive] = useState(false);
 
 
   const fetchHouses = useCallback(() => {
@@ -17,7 +22,7 @@ export const House: React.FC = () => {
     doFetch(
       "GET",
       url,
-      json => setHouses(json.houses), // vezi ce nume are json-ul
+      json => setHouses(json), 
       json => setPopupText(json.Message),
       message => {
         setPopupText(message); 
@@ -32,9 +37,37 @@ export const House: React.FC = () => {
     fetchHouses();
   }, [fetchHouses]);
 
+  
+  function handleHouseClick(house: House) {
+    setSetupIsActive(false);
+    setCurrentHouse(house);
+    console.log(house);
+  }
   return <div>
-    <Table>
-
+    <Table celled selectable>
+    <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>House type</Table.HeaderCell>
+            <Table.HeaderCell>Square meters</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        {houses.map(function(house, i) {
+          return (
+            <Table.Body onClick={() => handleHouseClick(house)} key = {i}>
+              <Table.Row>
+                <Table.Cell>{house.houseType}</Table.Cell>
+                <Table.Cell>{house.squareMeters}</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          )
+        })}
     </Table>
+    <HouseInformation
+        currentHouse={currentHouse}
+        fetchHouses={fetchHouses}
+        onNewCurrentHouse={setCurrentHouse}
+        onSetupStateChange={setSetupIsActive}
+        setupIsActive={setupIsActive}
+      />
   </div>;
 };

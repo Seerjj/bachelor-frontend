@@ -1,11 +1,10 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
 import { Path, pathToName, NameToPath } from "../lib/definitions/enums";
-import { nameFromPath, pathFromName } from "../lib/functions/general_funcs";
 import { RouteComponentProps, withRouter } from "react-router";
 // import "../scss/_sidemenu.scss"
 // import "../scss/main.scss"
-import "../App.css"
+import "../App.css";
 
 export interface MenubarProps extends RouteComponentProps {
   sideMenuVisible: boolean;
@@ -49,6 +48,7 @@ const UnroutedMenubar: React.FC<MenubarProps> = props => {
         {item("Customers")}
         {item("Materials")}
         {item("Production")}
+        {item("Users")}
         {item("QR")}
       </Menu>
     </React.Fragment>
