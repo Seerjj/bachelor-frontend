@@ -62,6 +62,7 @@ export const ProductionInformations: React.FC = () => {
         {productions.map(function(production, i) { return (
           <Table.Body
           onClick={() => handleProductionClick(production)} key={i}>
+            {console.log(production)}
             <Table.Row>
               <Table.Cell>
                 <Link
