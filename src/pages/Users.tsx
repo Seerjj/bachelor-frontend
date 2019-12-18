@@ -51,7 +51,7 @@ export const Users: React.FC = () => {
                     selection
                     options={users.map(function(user,i) {
                       return (
-                        <option value={user.roles[0]}>{user.roles[0]}</option>
+                        <option value={user.roles[0]} key={i}>{user.roles[0]}</option>
                       )
                     } )}
                   ></Select>
