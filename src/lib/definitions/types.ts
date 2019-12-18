@@ -14,6 +14,7 @@ export type RentalOverviewField =
   | "id"
   | "productionInformation"
   | "purchaseStatus"
+  | "purchaseStatusText"
   | "setupAddressTown"
   | "setupAddressStreet"
   | "setupAddressPostalCode"
