@@ -15,6 +15,12 @@ export interface Houses {
   squareMeters: number | null;
 }
 
+export interface HouseType {
+  id: number;
+  houseType: string | null;
+  materialsOnHouse: string | null;
+}
+
 export interface Customer {
   id: number;
   companyName: string | null;
