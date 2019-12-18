@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Table, Select, Icon } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 import { FMURL } from "../lib/definitions/enums";
 import { doFetch } from "../lib/functions/general_funcs";
 import { Production } from "../lib/definitions/types";
@@ -10,13 +10,8 @@ import { ProductionInformation } from "../pages/ProductionInformation";
 export const ProductionInformations: React.FC = () => {
   
   const [currentProduction, setCurrentProduction] = useState<Production>();
-  const [productions, setProductions] = useState<
-    Production[]
-  >([]);
-  const [
-    isFetchingProductions,
-    setIsFetchingProductions
-  ] = useState<boolean>(false);
+  const [productions, setProductions] = useState<Production[]>([]);
+  const [isFetchingProductions,setIsFetchingProductions] = useState<boolean>(false);
   const [popupText, setPopupText] = useState("");
 
   

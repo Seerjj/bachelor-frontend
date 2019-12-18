@@ -1,18 +1,14 @@
-import React, { useEffect, useState, useReducer, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { User } from "../lib/definitions/types";
 import { FMURL } from "../lib/definitions/enums";
 import { doFetch } from "../lib/functions/general_funcs";
-import { Table, Dropdown, Select, Icon } from "semantic-ui-react";
-import { Field } from "react-final-form";
+import { Table, Select, Icon } from "semantic-ui-react";
 
 export const Users: React.FC = () => {
-  const [currentUser, setCurrentUser] = useState<User>();
 
   const [users, setUsers] = useState<User[]>([]);
   const [isFetchingUsers, setIsFetchingUsers] = useState<boolean>(false);
   const [popupText, setPopupText] = useState("");
-
-  const [setupIsActive, setSetupIsActive] = useState(false);
 
   const fetchUsers = useCallback(() => {
     const url = FMURL.Users;

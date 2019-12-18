@@ -1,19 +1,17 @@
 import React, {
-    Component,
     useReducer,
     useState,
     useRef,
     useEffect
   } from "react";
-  import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
-  import {
+import { Button, Input, Modal } from "semantic-ui-react";
+import {
     getProp,
     setProp,
     logError,
     doFetch
   } from "../lib/functions/general_funcs";
-  import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
-  import { createSecureContext } from "tls";
+import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
 import { House, HouseField } from "../lib/definitions/types";
 import { getHousePropAsString } from "../lib/functions/houses_functions";
   
@@ -147,9 +145,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
       <React.Fragment>
           <div className="monitor__job-info">
             <div className="monitor__job-info--status-name-box">
-  
-  
-  
               {!isCreatingNew && nameText}
               {isCreatingNew && (
                 <Input
@@ -164,12 +159,8 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
                   error={!getHousePropAsString(activeHouse, "houseType")}
                 />
               )}
-  
             </div>
-  
-  
-  
-  
+
             <div className="monitor__job-info--setup-buttons">
               {!props.setupIsActive && (
                 <Button
@@ -202,8 +193,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
                     Cancel
                   </Button>
   
-  
-  
                   <Button
                     onClick={() => {
                       const callback = () => {
@@ -225,11 +214,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
                     {isCreatingNew ? "Create" : "Save"}
                   </Button>
   
-  
-  
-  
-  
-                  
                 </div>
               )}
               {props.currentHouse && !props.setupIsActive && (
@@ -260,7 +244,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
               )}
             </div>
   
-  
             <Input
               label="House type"
               field="houseType"
@@ -271,8 +254,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
               focus
             />
             
-  
-  
             <Input
               label="Square meters"
               field="squareMeters"
@@ -282,10 +263,6 @@ import { getHousePropAsString } from "../lib/functions/houses_functions";
               value={getHousePropAsString(activeHouse, "squareMeters")}
               focus
             />
-  
-            
-           
-            
   
             <Modal open={showDeletePopup}>
               <Modal.Content>

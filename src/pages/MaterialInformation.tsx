@@ -1,19 +1,17 @@
 import React, {
-    Component,
     useReducer,
     useState,
     useRef,
     useEffect
   } from "react";
-  import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
-  import {
+import { Button, Input, Modal } from "semantic-ui-react";
+import {
     getProp,
     setProp,
     logError,
     doFetch
   } from "../lib/functions/general_funcs";
-  import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
-  import { createSecureContext } from "tls";
+import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
 import { Material, MaterialField } from "../lib/definitions/types";
 import { getMaterialPropAsString } from "../lib/functions/materials_functions";
   
@@ -271,12 +269,6 @@ import { getMaterialPropAsString } from "../lib/functions/materials_functions";
               focus
             />
             
-  
-  
-            
-  
-  
-  
             <Input
               label="category"
               field="category"
@@ -289,8 +281,6 @@ import { getMaterialPropAsString } from "../lib/functions/materials_functions";
               value={getMaterialPropAsString(activeMaterial, "category")}
               focus
             />
-
-
 
             <Input
               label="houseSection"
@@ -305,9 +295,6 @@ import { getMaterialPropAsString } from "../lib/functions/materials_functions";
               focus
             />
 
-
-
-            
             <Input
               label="supplier"
               field="supplier"
@@ -335,7 +322,7 @@ import { getMaterialPropAsString } from "../lib/functions/materials_functions";
               focus
             />
 
-<Input
+            <Input
               label="pricePerUnit"
               field="pricePerUnit"
               onChange={(e, data) =>

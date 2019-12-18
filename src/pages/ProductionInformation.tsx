@@ -1,19 +1,17 @@
 import React, {
-    Component,
     useReducer,
     useState,
     useRef,
     useEffect
   } from "react";
-  import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
-  import {
+import { Button, Input, Modal } from "semantic-ui-react";
+import {
     getProp,
     setProp,
     logError,
     doFetch
   } from "../lib/functions/general_funcs";
-  import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
-  import { createSecureContext } from "tls";
+import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
 import { Production, ProductionField } from "../lib/definitions/types";
 import { getProductionInfoPropAsString } from "../lib/functions/production_functions";
   

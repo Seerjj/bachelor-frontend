@@ -1,11 +1,10 @@
 import React, {
-  Component,
   useReducer,
   useState,
   useRef,
   useEffect
 } from "react";
-import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
+import { Button, Input, Modal } from "semantic-ui-react";
 import { Customer, CustomerField } from "../lib/definitions/types";
 import {
   getProp,
@@ -15,7 +14,6 @@ import {
 } from "../lib/functions/general_funcs";
 import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
 import { getCustomerPropAsString } from "../lib/functions/customer_functions";
-import { createSecureContext } from "tls";
 
 function initActiveCustomer(customer: Customer | {}) {
   return JSON.parse(JSON.stringify(customer));
