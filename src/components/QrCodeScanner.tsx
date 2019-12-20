@@ -124,9 +124,7 @@ const QrCodeReader: React.FC = () => {
       />
 
       {displayData()}
-      {/* <div>
-            <p style={{fontSize: '20px', width: "18em"}}> {displayData()} </p>
-        </div> */}
+      
     </div>
   );
 };

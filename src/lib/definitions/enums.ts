@@ -36,12 +36,12 @@ export enum MenuItemName {
 }
 
 export enum FMURL {
-  RentalOverviews = "https://localhost:44310/api/v1/rentaloverviews",
-  Houses = "https://localhost:44310/api/v1/fmhouses",
-  Customers = "https://localhost:44310/api/v1/customers",
+  RentalOverviews = "https://localhost:44352/api/v1/rentaloverviews",
+  Houses = "https://localhost:44352/api/v1/fmhouses",
+  Customers = "https://localhost:44352/api/v1/customers",
   Login = "login",
-  Materials = "https://localhost:44310/api/v1/materials",
-  Production = "https://localhost:44310/api/v1/productioninformations"
+  Materials = "https://localhost:44352/api/v1/materials",
+  Production = "https://localhost:44352/api/v1/productioninformations"
 }
 
 export enum ErrorSeverity {

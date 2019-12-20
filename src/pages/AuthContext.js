@@ -53,7 +53,7 @@ class AuthProviderComponent extends Component {
     if (this.state.isAuth) {
       // you shouldn't really end up here, if you end up in here, you've wrongly set up your routes / componetns
     } else {
-      fetch("https://localhost:44310/api/v1/identity/login", {
+      fetch("https://localhost:44352/api/v1/identity/login", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
