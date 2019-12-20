@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Grid } from "semantic-ui-react";
+import React from "react";
 import { Path } from "../lib/definitions/enums";
 import { Switch, Route } from "react-router";
 import { Houses } from "../pages/Houses";

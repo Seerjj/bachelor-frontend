@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useReducer, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Customer } from "../lib/definitions/types";
-import { doFetch, getProp } from "../lib/functions/general_funcs";
+import { doFetch } from "../lib/functions/general_funcs";
 import { FMURL } from "../lib/definitions/enums";
-import { RouteComponentProps, Link } from "react-router-dom";
-import { Table, Accordion, Form, Button } from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import { CustomerInformation } from "../pages/CustomerInformation";
 
 export const Customers: React.FC = () => {
@@ -70,8 +69,8 @@ export const Customers: React.FC = () => {
             <Table.HeaderCell>Contact Person</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {customers.map(customer => (
-          <Table.Body onClick={() => handleCustomerClick(customer)}>
+        {customers.map(function(customer, i) { return (
+          <Table.Body onClick={() => handleCustomerClick(customer)} key = {i}>
             <Table.Row>
               <Table.Cell>{customer.companyName}</Table.Cell>
               <Table.Cell>{customer.companyTown}</Table.Cell>
@@ -81,7 +80,7 @@ export const Customers: React.FC = () => {
               <Table.Cell>{customer.contactPerson}</Table.Cell>
             </Table.Row>
           </Table.Body>
-        ))}
+        )})}
       </Table>
       <CustomerInformation
         currentCustomer={currentCustomer}

@@ -42,8 +42,8 @@ const UnroutedMenubar: React.FC<MenubarProps> = props => {
 
   return (
     <React.Fragment>
-      <Menu>
-        {item("RentalOverviews")}
+      <Menu >
+        {/* {item("RentalOverview")} */}
         {item("Houses")}
         {item("Customers")}
         {item("Materials")}

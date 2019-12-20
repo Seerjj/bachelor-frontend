@@ -1,19 +1,17 @@
 import React, {
-    Component,
     useReducer,
     useState,
     useRef,
     useEffect
   } from "react";
-  import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
-  import {
+import { Button, Input, Modal } from "semantic-ui-react";
+import {
     getProp,
     setProp,
     logError,
     doFetch
   } from "../lib/functions/general_funcs";
-  import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
-  import { createSecureContext } from "tls";
+import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
 import { Production, ProductionField } from "../lib/definitions/types";
 import { getProductionInfoPropAsString } from "../lib/functions/production_functions";
   
@@ -65,7 +63,7 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
           ErrorSeverity.Medium
         );
         return;
-      } else if (!props.currentProduction.customer.companyName) {
+      } else if (!props.currentProduction.customer) {
         logError(
           "Delete was possible to perform on a Production without a name",
           ErrorSeverity.High
@@ -87,7 +85,7 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
     }
   
     function postProduction(onSuccess: () => void) {
-      const name = getProp(activeProduction, "customer.companyName");
+      const name = getProp(activeProduction, "customer");
   
       if (!name) {
         logError(
@@ -136,7 +134,7 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
       );
     }
   
-    let nameText = getProductionInfoPropAsString(activeProduction, "customer.companyName");
+    let nameText = getProductionInfoPropAsString(activeProduction, "customer");
     if (!nameText) {
       nameText = "No production selected";
     } else if (!activeProduction) {
@@ -145,7 +143,6 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
   
     return (
       <React.Fragment>
-        <Table>
           <div className="monitor__job-info">
             <div className="monitor__job-info--status-name-box">
   
@@ -155,14 +152,14 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
               {isCreatingNew && (
                 <Input
                   placeholder="Production name"
-                  value={getProductionInfoPropAsString(activeProduction, "customer.companyName")}
+                  value={getProductionInfoPropAsString(activeProduction, "customer")}
                   onChange={(e, data) =>
                     updateActiveProduction({
-                      field: "customer.companyName",
+                      field: "customer",
                       value: data.value
                     })
                   }
-                  error={!getProductionInfoPropAsString(activeProduction, "customer.companyName")}
+                  error={!getProductionInfoPropAsString(activeProduction, "customer")}
                 />
               )}
   
@@ -220,7 +217,7 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
                     }}
                     color="blue"
                     disabled={
-                      !getProductionInfoPropAsString(activeProduction, "customer.companyName")
+                      !getProductionInfoPropAsString(activeProduction, "customer")
                     }
                   >
                     {isCreatingNew ? "Create" : "Save"}
@@ -241,7 +238,7 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
                   }}
                   disabled={
                     !props.currentProduction ||
-                    !getProp(props.currentProduction, "customer.companyName")
+                    !getProp(props.currentProduction, "customer")
                   }
                 >
                   Edit
@@ -252,7 +249,7 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
                   text="Delete"
                   onClick={() => setShowDeletePopup(true)}
                   disabled={
-                    !getProductionInfoPropAsString(activeProduction, "customer.companyName")
+                    !getProductionInfoPropAsString(activeProduction, "customer")
                   }
                   negative
                 >
@@ -264,11 +261,11 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
   
             <Input
               label="Company Name"
-              field="customer.companyName"
+              field="customer"
               onChange={(e, data) =>
-                updateActiveProduction({ field: "customer.companyName", value: data.value })
+                updateActiveProduction({ field: "customer", value: data.value })
               }
-              value={getProductionInfoPropAsString(activeProduction, "customer.companyName")}
+              value={getProductionInfoPropAsString(activeProduction, "customer")}
               focus
             />
             
@@ -339,7 +336,7 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
               <Modal.Content>
                 {`Are you sure you want to delete ${
                   props.currentProduction
-                    ? props.currentProduction.customer.companyName
+                    ? props.currentProduction.customer
                     : "this Production"
                 }?`}
               </Modal.Content>
@@ -358,7 +355,6 @@ import { getProductionInfoPropAsString } from "../lib/functions/production_funct
               </Modal.Actions>
             </Modal>
           </div>
-        </Table>
       </React.Fragment>
     );
   };

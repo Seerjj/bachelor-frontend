@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Table, Select, Icon } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
 import { FMURL } from "../lib/definitions/enums";
 import { doFetch } from "../lib/functions/general_funcs";
 import { Production } from "../lib/definitions/types";
@@ -10,13 +10,8 @@ import { ProductionInformation } from "../pages/ProductionInformation";
 export const ProductionInformations: React.FC = () => {
   
   const [currentProduction, setCurrentProduction] = useState<Production>();
-  const [productions, setProductions] = useState<
-    Production[]
-  >([]);
-  const [
-    isFetchingProductions,
-    setIsFetchingProductions
-  ] = useState<boolean>(false);
+  const [productions, setProductions] = useState<Production[]>([]);
+  const [isFetchingProductions,setIsFetchingProductions] = useState<boolean>(false);
   const [popupText, setPopupText] = useState("");
 
   
@@ -64,9 +59,10 @@ export const ProductionInformations: React.FC = () => {
             <Table.HeaderCell>lastUpdatedDate</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {productions.map(production => (
+        {productions.map(function(production, i) { return (
           <Table.Body
-          onClick={() => handleProductionClick(production)}>
+          onClick={() => handleProductionClick(production)} key={i}>
+            {console.log(production)}
             <Table.Row>
               <Table.Cell>
                 <Link
@@ -90,7 +86,7 @@ export const ProductionInformations: React.FC = () => {
               <Table.Cell>{production.lastUpdatedDate}</Table.Cell>
             </Table.Row>
           </Table.Body>
-        ))}
+        )} )}
       </Table>
       <ProductionInformation
         currentProduction={currentProduction}

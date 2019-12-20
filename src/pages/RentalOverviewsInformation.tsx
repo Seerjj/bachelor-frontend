@@ -1,11 +1,10 @@
 import React, {
-    Component,
     useReducer,
     useState,
     useRef,
     useEffect
   } from "react";
-  import { Form, Button, Input, Table, Popup, Modal } from "semantic-ui-react";
+  import { Form, Button, Input, Modal } from "semantic-ui-react";
   import {
     getProp,
     setProp,
@@ -14,7 +13,6 @@ import React, {
   } from "../lib/functions/general_funcs";
   import { ErrorSeverity, FMURL } from "../lib/definitions/enums";
 import { RentalOverview, RentalOverviewField } from "../lib/definitions/types";
-import { getHousePropAsString } from "../lib/functions/houses_functions";
 import { getRentalOverviewPropAsString } from "../lib/functions/rentaloverviews_functions";
   
   function initActiveRental(rental: RentalOverview | {}) {
@@ -145,7 +143,6 @@ import { getRentalOverviewPropAsString } from "../lib/functions/rentaloverviews_
   
     return (
       <React.Fragment>
-        <Table>
           <div className="monitor__job-info">
             <div className="monitor__job-info--status-name-box">
   
@@ -355,7 +352,6 @@ import { getRentalOverviewPropAsString } from "../lib/functions/rentaloverviews_
               </Modal.Actions>
             </Modal>
           </div>
-        </Table>
       </React.Fragment>
     );
   };
