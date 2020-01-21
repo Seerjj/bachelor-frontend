@@ -1,10 +1,5 @@
-import React, {
-  useReducer,
-  useState,
-  useRef,
-  useEffect
-} from "react";
-import { Button, Input, Modal } from "semantic-ui-react";
+import React, { useReducer, useState, useRef, useEffect } from "react";
+import { Button, Input, Modal, Table } from "semantic-ui-react";
 import { Customer, CustomerField } from "../lib/definitions/types";
 import {
   getProp,
@@ -76,7 +71,11 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
     doFetch(
       "DELETE",
       `${FMURL.Customers}/${id}`,
-      () => setPopupText(id + " deleted successfully"),
+      () => {
+        setPopupText(id + " deleted successfully");
+        updateActiveCustomer({ field: "", value: "", init: {} });
+        props.fetchCustomers();
+      },
       json => setPopupText(json.Message),
       error => setPopupText(error.toString()),
       "",
@@ -143,11 +142,9 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
 
   return (
     <React.Fragment>
+      <Table>
         <div className="monitor__job-info">
           <div className="monitor__job-info--status-name-box">
-
-
-
             {!isCreatingNew && nameText}
             {isCreatingNew && (
               <Input
@@ -162,11 +159,7 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                 error={!getCustomerPropAsString(activeCustomer, "companyName")}
               />
             )}
-
           </div>
-
-
-
 
           <div className="monitor__job-info--setup-buttons">
             {!props.setupIsActive && (
@@ -200,8 +193,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                   Cancel
                 </Button>
 
-
-
                 <Button
                   onClick={() => {
                     const callback = () => {
@@ -222,12 +213,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                 >
                   {isCreatingNew ? "Create" : "Save"}
                 </Button>
-
-
-
-
-
-                
               </div>
             )}
             {props.currentCustomer && !props.setupIsActive && (
@@ -238,16 +223,23 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
                 }}
                 disabled={
                   !props.currentCustomer ||
-                  !getProp(props.currentCustomer, "companyName")
+                  !getProp(props.currentCustomer, "companyName") ||
+                  
+                  !getCustomerPropAsString(activeCustomer, "companyName")
                 }
               >
                 Edit
               </Button>
             )}
+
             {props.currentCustomer && !props.setupIsActive && (
               <Button
-                text="Delete"
-                onClick={() => setShowDeletePopup(true)}
+                onClick={() =>
+                  { setShowDeletePopup(true);
+                    // setIsCreatingNew(false);
+                    
+                  }
+                }
                 disabled={
                   !getCustomerPropAsString(activeCustomer, "companyName")
                 }
@@ -258,7 +250,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
             )}
           </div>
 
-
           <Input
             label="Company Name"
             field="companyName"
@@ -268,8 +259,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
             value={getCustomerPropAsString(activeCustomer, "companyName")}
             focus
           />
-          
-
 
           <Input
             label="Company Town"
@@ -280,8 +269,6 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
             value={getCustomerPropAsString(activeCustomer, "companyTown")}
             focus
           />
-
-
 
           <Input
             label="companyStreet"
@@ -355,6 +342,7 @@ export const CustomerInformation: React.FC<CustomerInformationProps> = props => 
             </Modal.Actions>
           </Modal>
         </div>
+      </Table>
     </React.Fragment>
   );
 };

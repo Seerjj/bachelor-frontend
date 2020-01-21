@@ -23,7 +23,8 @@
   margin: 0 10px 200px; } */
 
 .monitor__job-info {
-  display: grid;
+  display:grid;
+  height: 140px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(7, 1fr) auto auto;
   grid-column-gap: 20px;

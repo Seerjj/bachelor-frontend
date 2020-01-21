@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Button, Input, Icon } from "semantic-ui-react";
+import { Button, Input, Icon, Grid, Image, Header, Segment } from "semantic-ui-react";
 import { AuthConsumer } from "./AuthContext";
 import { Field, Form } from "react-final-form";
+import Logo from "../components/images/logo.png"
 
 class Login extends Component {
   constructor(props) {
@@ -21,10 +22,15 @@ class Login extends Component {
 
   render() {
     return (
+      <div className="login">
       <React.Fragment>
         <AuthConsumer>
-          {({ login }) => (
+          {({ login, isAuth }) => (
+            <div>
+            {!isAuth ? (
             <Form
+              size="large"
+              textAlign="center"
               onSubmit={values => {
                 //console.log(values);
 
@@ -37,6 +43,8 @@ class Login extends Component {
               render={({ handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <Field
+                    icon="user"
+                    iconPosition="left"
                     name="email"
                     value={this.state.name}
                     type="text"
@@ -45,6 +53,8 @@ class Login extends Component {
                   />
                   <br />
                   <Field
+                    icon="lock"
+                    iconPosition="left"
                     name="password"
                     value={this.state.name}
                     type="password"
@@ -53,12 +63,15 @@ class Login extends Component {
                   />
                   <br />
 
-                  <Button style={{ width: 180 }} id="createbtn" type="submit">
+                  <Button style={{ width: 207 }} id="createbtn" type="submit" color="green" fluid size="large" >
                     Login
                   </Button>
                 </form>
               )}
-            />
+            />) : (
+              <div />
+            )}
+            </div>
           )}
         </AuthConsumer>
         <AuthConsumer>
@@ -69,6 +82,9 @@ class Login extends Component {
                   <Icon
                     size="large"
                     name="sign-out alternate"
+                    style={{position: "absolute",
+                      top: "8px",
+                      right: "8px"}}
                     onClick={logout}
                   />
                 </div>
@@ -78,8 +94,9 @@ class Login extends Component {
             </div>
           )}
         </AuthConsumer>
-
+        
       </React.Fragment>
+      </div>
     );
   }
 }

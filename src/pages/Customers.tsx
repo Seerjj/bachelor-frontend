@@ -16,19 +16,6 @@ export const Customers: React.FC = () => {
 
   const [setupIsActive, setSetupIsActive] = useState(false);
 
-  // const columns: TableColumn  [] = [
-  //   { displayName: "Name", fieldName: "Name" },
-  //   { displayName: "Description", fieldName: "Description" },
-  //   { displayName: "Codepage", fieldName: "Codepage" },
-  //   { displayName: "HubId", fieldName: "HubId" },
-  //   { displayName: "Location", fieldName: "Location" },
-  //   {
-  //     displayName: "CommunicationMethodName",
-  //     fieldName: "communicationmethodname"
-  //   },
-  //   { displayName: "SystemGroup", fieldName: "SystemGroup" }
-  // ];
-
   const fetchCustomers = useCallback(() => {
     const url = FMURL.Customers;
     setIsFetchingCustomers(true);

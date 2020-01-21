@@ -59,6 +59,7 @@ export async function doFetch(
   signal?: AbortSignal
 ) {
   try {
+    //create a new header object where we set 
     const headers = new Headers();
     headers.set("Content-Type", "application/json");
     headers.set("Authorization", localStorage.getItem("Authorization") + "");
@@ -71,8 +72,12 @@ export async function doFetch(
 
     if (response.ok) {
       try {
-        const responseBody = await response.json();
-        onOK(responseBody);
+        if (response.status != 204) {
+          const responseBody = await response.json();
+          onOK(responseBody);
+        } else {
+          onOK(JSON);
+        }
       } catch (error) {
         console.log(error);
         onError(
@@ -87,12 +92,14 @@ export async function doFetch(
         onError(response.statusText);
       }
     }
+    
   } catch (error) {
     console.log(error);
     onError(
       `A ${TypeOfError.NetworkError} occured. Check the console log for more information`
     );
   } finally {
+    //provided as argument
     if (finallyCallback) {
       finallyCallback();
     }
@@ -154,7 +161,7 @@ export async function doFetchNew(
 export function logError(message: string, severity: ErrorSeverity) {
   console.log(severity + ": " + message);
 }
-
+//36:45
 export function setProp(obj: any, path: string, value: any) {
   const keyPath = path.split(".");
   let lastKeyIndex = keyPath.length - 1;

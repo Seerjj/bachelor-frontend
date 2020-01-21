@@ -31,6 +31,12 @@ export type HouseField = "id" | "houseType" | "squareMeters"
 
 ;
 
+export interface HouseType{
+  id: number;
+  houseType: string | null;
+  materialsOnHouse: string | null;
+}
+
 export interface User {
   id: string;
   userName: string;
