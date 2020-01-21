@@ -38,7 +38,7 @@ class AuthProviderComponent extends Component {
         Authorization: this.state
           .token /*refreshToken: this.state.refreshToken*/
       };
-      this.props.history.push("/rentaloverviews");
+      this.props.history.push("/customers");
     }
   };
 
